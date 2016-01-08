@@ -3,11 +3,24 @@ var loop, counter, bankAccount, product;
 product = 0;
 bankAccount = 5000;
 
+var game;
+game = new Game;
+
+function Game() {
+  this.product = 0;
+  this.bankAccount = 5000;
+  this.neighborhood = new Neighborhood({game: this});
+}
+
 function Neighborhood(args) {
-  this.houses = args.houses || [];
+  this.game = args.game || raise("a new Neighborhood must have reference to a game");
+  this.houses = args.houses || [new House({budget: 200, frequency: 5, game: this.game}),
+                                new House({budget: 300, frequency: 20, game: this.game}),
+                                new House({budget: 500, frequency: 30, game: this.game})];
 }
 
 function House(args) {
+  this.game = args.game;
   this.budget = args.budget;
   this.frequency = args.frequency;
   this.readyToBuy = false;
@@ -115,3 +128,5 @@ function updateDOM() {
   document.querySelector("#h2 .ready").innerText = h2.readyText();
   document.querySelector("#h3 .ready").innerText = h3.readyText();
 }
+
+
