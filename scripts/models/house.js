@@ -8,6 +8,25 @@ define(['presenters/house-presenter', 'errors'], function(HousePresenter, errors
     this.presenter = new HousePresenter(this);
   }
 
+  // <<<<<<<< IMMUTABLE BOOLEAN CHECKS >>>>>>>>
+
+  House.prototype.ready = function() {
+    if (this.willingToBuy) {
+      return true;
+    } else {
+      errors.add("house is not ready to make a purchase");
+      return false;
+    }
+  }
+
+  // <<<<<<<< IMMUTABLE CALCULATIONS >>>>>>>>
+
+  House.prototype.daysUntilReady = function(day) {
+    return day % this.frequency;
+  }
+
+  // <<<<<<<< MUTATOR METHODS >>>>>>>>
+
   House.prototype.sell = function() {
     if (this.willingToBuy) {
       this.willingToBuy = false;
@@ -18,18 +37,10 @@ define(['presenters/house-presenter', 'errors'], function(HousePresenter, errors
     }
   }
 
-  House.prototype.checkReadiness = function(day) {
-    if (day % this.frequency === 0) {
+  House.prototype.updateReadiness = function(today) {
+    if (this.daysUntilReady(today) === 0) {
       this.willingToBuy = true;
       this.presenter.refresh();
-    }
-  }
-
-  House.prototype.ready = function() {
-    if (this.willingToBuy) {
-      return true;
-    } else {
-      errors.add("house is not ready to make a purchase");
     }
   }
 
