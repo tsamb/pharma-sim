@@ -39,7 +39,7 @@ define(function() {
                         "      <td class='ready'>" + this.object.readyText() + "</td>" +
                         "    </tr>" +
                         "  </table>" +
-                        "  <button>Sell to this house</button>" +
+                        "  <button disabled>Sell to this house</button>" +
                         "</div>";
     return wrapper.firstChild;
   }
