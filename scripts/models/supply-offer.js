@@ -1,4 +1,4 @@
-define(['./supply-offer-presenter'], function(SupplyOfferPresenter) {
+define(['presenters/supply-offer-presenter'], function(SupplyOfferPresenter) {
   function SupplyOffer(args) {
     SupplyOffer.numInstances = (SupplyOffer.numInstances || 0) + 1;
     this.amount = args.amount;

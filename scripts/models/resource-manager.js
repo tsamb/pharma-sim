@@ -1,4 +1,4 @@
-define(['./resource-manager-presenter', './errors'], function(ResourceManagerPresenter, errors) {
+define(['presenters/resource-manager-presenter', 'errors'], function(ResourceManagerPresenter, errors) {
   function ResourceManager() {
     this.product = 10;
     this.bankAccount = 5000;

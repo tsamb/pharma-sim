@@ -1,4 +1,4 @@
-define(['./house-presenter', './errors'], function(HousePresenter, errors) {
+define(['presenters/house-presenter', 'errors'], function(HousePresenter, errors) {
     function House(args) {
     House.numInstances = (House.numInstances || 0) + 1;
     this.budget = args.budget;
