@@ -22,12 +22,20 @@ define(['models/resource-manager', 'models/house','models/supply-offer'], functi
     this.days++;
     this.updateReadinessOfAllHouses(this.days);
     // move/call the above method to/on the soon to be formed Neighborhood class
+    this.updateDaysOnView()
+    // move/call the above method to/on a Day Presenter
   }
 
+  // move the below method into a Neighborhood class which manages House objects
   Controller.prototype.updateReadinessOfAllHouses = function(day) {
     this.houses.forEach(function(house) {
       house.updateReadiness(day);
     });
+  }
+
+  // move the below method into a Day Presenter
+  Controller.prototype.updateDaysOnView = function() {
+    document.getElementById("day").innerText = this.days;
   }
 
   Controller.prototype.sellToHouse = function(houseId) {
