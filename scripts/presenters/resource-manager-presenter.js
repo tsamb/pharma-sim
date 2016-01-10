@@ -12,13 +12,14 @@ define(function() {
   ResourceManagerPresenter.prototype.refresh = function() {
     document.getElementById('bank-balance').innerText = this.object.bankAccount;
     document.getElementById('product').innerText = this.object.product;
+    document.getElementById('capacity').innerText = this.object.capacity;
   }
 
   ResourceManagerPresenter.prototype.html = function() {
     var wrapper = document.createElement('div');
     wrapper.innerHTML = "<table>" +
                         "<tr><td>Bank balance:</td><td id='bank-balance'>" + this.object.bankAccount + "</td></tr>" +
-                        "<tr><td>Product on hand:</td><td><span id='product'>" + this.object.product + "</span> ounces.</td></tr>" +
+                        "<tr><td>Product / Capacity:</td><td><span id='product'>" + this.object.product + "</span> / <span id='capacity'>" + this.object.capacity + "</span></td></tr>" +
                         "</table>";
     return wrapper;
   }
