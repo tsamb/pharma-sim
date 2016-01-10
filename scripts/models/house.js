@@ -3,7 +3,7 @@ define(['presenters/house-presenter', 'errors'], function(HousePresenter, errors
     House.numInstances = (House.numInstances || 0) + 1;
     this.budget = args.budget;
     this.frequency = args.frequency;
-    this.willingToBuy = true;
+    this.willingToBuy = false;
     this.id = this.constructor.name.toLowerCase() + "-" + House.numInstances;
     this.presenter = new HousePresenter(this);
   }
