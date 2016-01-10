@@ -14,6 +14,11 @@ define(function() {
     houseElement.getElementsByClassName("budget")[0].innerText = this.object.budget;
     houseElement.getElementsByClassName("frequency")[0].innerText = this.object.frequency;
     houseElement.getElementsByClassName("ready")[0].innerText = this.object.readyText();
+    if (this.object.willingToBuy) {
+      houseElement.getElementsByTagName("button")[0].disabled = false;
+    } else {
+      houseElement.getElementsByTagName("button")[0].disabled = true;
+    }
   }
 
   HousePresenter.prototype.html = function() {
