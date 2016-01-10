@@ -1,5 +1,7 @@
 define(['models/resource-manager', 'models/house','models/supply-offer'], function(ResourceManager, House, SupplyOffer) {
   var Controller = function() {
+    this.coreLoop = window.setInterval(this.coreCycle.bind(this), 500);
+    this.days = 0;
     this.resourceManager = new ResourceManager;
     this.houses = [];
     this.supplyOffers = [];
@@ -14,6 +16,18 @@ define(['models/resource-manager', 'models/house','models/supply-offer'], functi
     this.addSupplyOffer({amount: 100, price: 20000});
     this.addSupplyOffer({amount: 500, price: 75000});
     this.addSupplyOffer({amount: 1000, price: 120000});
+  }
+
+  Controller.prototype.coreCycle = function() {
+    this.days++;
+    this.updateReadinessOfAllHouses(this.days);
+    // move/call the above method to/on the soon to be formed Neighborhood class
+  }
+
+  Controller.prototype.updateReadinessOfAllHouses = function(day) {
+    this.houses.forEach(function(house) {
+      house.updateReadiness(day);
+    });
   }
 
   Controller.prototype.sellToHouse = function(houseId) {
