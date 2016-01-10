@@ -6,6 +6,8 @@ define(['presenters/resource-manager-presenter', 'errors'], function(ResourceMan
     this.presenter = new ResourceManagerPresenter(this);
   }
 
+  // <<<<<<<< IMMUTABLE BOOLEAN CHECKS >>>>>>>>
+
   ResourceManager.prototype.productIsAvailable = function() {
     if (this.product > 0) {
       return true;
@@ -32,6 +34,8 @@ define(['presenters/resource-manager-presenter', 'errors'], function(ResourceMan
       return false;
     }
   }
+
+  // <<<<<<<< MUTATOR METHODS >>>>>>>>
 
   ResourceManager.prototype.sellProduct = function(amount, cash) {
     if (this.productIsAvailable()) {
