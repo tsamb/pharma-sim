@@ -41,7 +41,7 @@ define(['models/resource-manager', 'models/house','models/supply-offer'], functi
 
   Controller.prototype.addSupplyOffer = function(args) {
     var offer = new SupplyOffer(args);
-    document.querySelector("#" + offer.id).addEventListener('click', function() {
+    document.getElementById(offer.id).addEventListener('click', function() {
       this.buyProduct(offer.id);
     }.bind(this));
     this.supplyOffers.push(offer);
