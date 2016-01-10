@@ -1,10 +1,10 @@
-define(['models/resource-manager', 'models/house','models/supply-offer'], function(ResourceManager, House, SupplyOffer) {
+define(['models/resource-manager', 'models/house','models/supply-offer', 'models/days'], function(ResourceManager, House, SupplyOffer, Days) {
   var Controller = function() {
-    this.coreLoop = window.setInterval(this.coreCycle.bind(this), 500);
-    this.days = 0;
+    this.days = new Days;
     this.resourceManager = new ResourceManager;
     this.houses = [];
     this.supplyOffers = [];
+    this.coreLoop = window.setInterval(this.coreCycle.bind(this), 500);
     this.init();
   }
 
@@ -19,11 +19,9 @@ define(['models/resource-manager', 'models/house','models/supply-offer'], functi
   }
 
   Controller.prototype.coreCycle = function() {
-    this.days++;
-    this.updateReadinessOfAllHouses(this.days);
+    this.days.increment();
+    this.updateReadinessOfAllHouses(this.days.count);
     // move/call the above method to/on the soon to be formed Neighborhood class
-    this.updateDaysOnView()
-    // move/call the above method to/on a Day Presenter
   }
 
   // move the below method into a Neighborhood class which manages House objects
@@ -31,11 +29,6 @@ define(['models/resource-manager', 'models/house','models/supply-offer'], functi
     this.houses.forEach(function(house) {
       house.updateReadiness(day);
     });
-  }
-
-  // move the below method into a Day Presenter
-  Controller.prototype.updateDaysOnView = function() {
-    document.getElementById("day").innerText = this.days;
   }
 
   Controller.prototype.sellToHouse = function(houseId) {
