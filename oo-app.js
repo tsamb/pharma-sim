@@ -57,7 +57,7 @@ ResourceManager.prototype.productIsAvailable = function() {
 }
 
 ResourceManager.prototype.cashIsAvailable = function(amountNeeded) {
-  if (this.cash > amountNeeded) {
+  if (this.bankAccount > amountNeeded) {
     return true;
   } else {
     errors.add("insufficient cash available");
@@ -73,10 +73,10 @@ ResourceManager.prototype.sellProduct = function(amount, cash) {
   }
 }
 
-ResourceManager.prototype.buyProduct = function(amount, cash) {
-  if (this.cashIsAvailable(cash)) {
+ResourceManager.prototype.buyProduct = function(amount, price) {
+  if (this.cashIsAvailable(price)) {
     this.product += amount;
-    this.bankAccount -= cash;
+    this.bankAccount -= price;
     this.presenter.refresh();
   }
 }
@@ -187,10 +187,7 @@ HousePresenter.prototype.html = function() {
 function Controller() {
   this.resourceManager = new ResourceManager;
   this.houses = [];
-  this.supplyOffers = [ new SupplyOffer({amount: 10, price: 2500}),
-                        new SupplyOffer({amount: 100, price: 20000}),
-                        new SupplyOffer({amount: 500, price: 75000}),
-                        new SupplyOffer({amount: 1000, price: 120000})];
+  this.supplyOffers = [];
   this.init();
 }
 
@@ -198,12 +195,23 @@ Controller.prototype.init = function() {
   this.addHouse({budget: 200, frequency: 5});
   this.addHouse({budget: 300, frequency: 20});
   this.addHouse({budget: 500, frequency: 30});
+  this.addSupplyOffer({amount: 10, price: 2500});
+  this.addSupplyOffer({amount: 100, price: 20000});
+  this.addSupplyOffer({amount: 500, price: 75000});
+  this.addSupplyOffer({amount: 1000, price: 120000});
 }
 
 Controller.prototype.sellToHouse = function(houseId) {
   var house = this.houses.find(function(house) { return house.id === houseId });
   if (house && house.ready() && this.resourceManager.productIsAvailable()) {
     this.resourceManager.sellProduct(1, house.budget);
+  }
+}
+
+Controller.prototype.buyProduct = function(offerId) {
+  var offer = this.supplyOffers.find(function(offer) { return offer.id === offerId });
+  if (offer) {
+    this.resourceManager.buyProduct(offer.amount, offer.price);
   }
 }
 
@@ -216,8 +224,13 @@ Controller.prototype.addHouse = function(args) {
   return this.houses;
 }
 
-Controller.prototype.addSupplyOffer = function() {
-
+Controller.prototype.addSupplyOffer = function(args) {
+  var offer = new SupplyOffer(args);
+  document.querySelector("#" + offer.id).addEventListener('click', function() {
+    this.buyProduct(offer.id);
+  }.bind(this));
+  this.supplyOffers.push(offer);
+  return this.supplyOffers;
 }
 
 ctrl = new Controller
