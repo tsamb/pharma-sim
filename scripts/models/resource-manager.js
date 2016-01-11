@@ -42,6 +42,7 @@ define(['presenters/resource-manager-presenter', 'errors'], function(ResourceMan
       this.product -= amount;
       this.bankAccount += cash;
       this.presenter.refresh();
+      new Audio('audio/cash-register.wav').play();
     }
   }
 
@@ -50,6 +51,7 @@ define(['presenters/resource-manager-presenter', 'errors'], function(ResourceMan
       this.product += amount;
       this.bankAccount -= price;
       this.presenter.refresh();
+      new Audio('audio/cocking-gun.wav').play();
     }
   }
 
