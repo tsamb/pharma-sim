@@ -4,6 +4,7 @@ define(['presenters/experience-manager-presenter'], function(ExperienceManagerPr
 
   function ExperienceManager() {
     this.experience = 0;
+    this.presenter = new ExperienceManagerPresenter(this);
   }
 
   // <<<<<<<< COMPUTED PROPERTIES >>>>>>>>
@@ -41,6 +42,7 @@ define(['presenters/experience-manager-presenter'], function(ExperienceManagerPr
 
   ExperienceManager.prototype.increase = function(amount) {
     this.experience += amount;
+    this.presenter.refresh();
   }
 
   return ExperienceManager;
