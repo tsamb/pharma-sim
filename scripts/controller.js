@@ -3,7 +3,6 @@ define(['models/resource-manager', 'models/house','models/supply-offer', 'models
     this.days = new Days;
     this.resourceManager = new ResourceManager;
     this.neighborhood = new Neighborhood;
-    this.houses = [];
     this.supplyOffers = [];
     this.coreLoop = window.setInterval(this.coreCycle.bind(this), 500);
     this.init();
@@ -43,7 +42,6 @@ define(['models/resource-manager', 'models/house','models/supply-offer', 'models
     document.querySelector("#" + houseId + " button").addEventListener('click', function() {
       this.sellToHouse(houseId);
     }.bind(this));
-    return this.houses;
   }
 
   Controller.prototype.addSupplyOffer = function(args) {
