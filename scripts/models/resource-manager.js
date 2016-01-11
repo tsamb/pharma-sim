@@ -1,8 +1,11 @@
-define(['presenters/resource-manager-presenter', 'errors'], function(ResourceManagerPresenter, errors) {
+define(['models/experience-manager',
+'presenters/resource-manager-presenter',
+'errors'], function(ExperienceManager, ResourceManagerPresenter, errors) {
   function ResourceManager() {
     this.product = 0;
     this.capacity = 100;
     this.bankAccount = 5000;
+    this.experienceManager = new ExperienceManager;
     this.presenter = new ResourceManagerPresenter(this);
   }
 
