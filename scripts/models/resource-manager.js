@@ -1,7 +1,7 @@
 define(['models/experience-manager',
 'presenters/resource-manager-presenter',
 'errors'], function(ExperienceManager, ResourceManagerPresenter, errors) {
-  var BUY_XP_MULTIPLE = 100;
+  var BUY_XP_MULTIPLE = 50;
 
   function ResourceManager() {
     this.product = 0;
