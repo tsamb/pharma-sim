@@ -1,4 +1,9 @@
-define(['models/resource-manager', 'models/house','models/supply-offer', 'models/days', 'models/neighborhood'], function(ResourceManager, House, SupplyOffer, Days, Neighborhood) {
+define(['models/resource-manager',
+'models/house',
+'models/supply-offer',
+'models/days',
+'models/neighborhood'],
+function(ResourceManager, House, SupplyOffer, Days, Neighborhood) {
   var Controller = function() {
     this.days = new Days;
     this.resourceManager = new ResourceManager;
