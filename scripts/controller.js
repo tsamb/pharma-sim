@@ -1,7 +1,8 @@
-define(['models/resource-manager', 'models/house','models/supply-offer', 'models/days'], function(ResourceManager, House, SupplyOffer, Days) {
+define(['models/resource-manager', 'models/house','models/supply-offer', 'models/days', 'models/neighborhood'], function(ResourceManager, House, SupplyOffer, Days, Neighborhood) {
   var Controller = function() {
     this.days = new Days;
     this.resourceManager = new ResourceManager;
+    this.neighborhood = new Neighborhood;
     this.houses = [];
     this.supplyOffers = [];
     this.coreLoop = window.setInterval(this.coreCycle.bind(this), 500);
@@ -20,19 +21,11 @@ define(['models/resource-manager', 'models/house','models/supply-offer', 'models
 
   Controller.prototype.coreCycle = function() {
     this.days.increment();
-    this.updateReadinessOfAllHouses(this.days.count);
-    // move/call the above method to/on the soon to be formed Neighborhood class
-  }
-
-  // move the below method into a Neighborhood class which manages House objects
-  Controller.prototype.updateReadinessOfAllHouses = function(day) {
-    this.houses.forEach(function(house) {
-      house.updateReadiness(day);
-    });
+    this.neighborhood.updateHouseReadiness(this.days.count);
   }
 
   Controller.prototype.sellToHouse = function(houseId) {
-    var house = this.houses.find(function(house) { return house.id === houseId });
+    var house = this.neighborhood.findHouse(houseId);
     if (house && house.ready() && this.resourceManager.productIsAvailable()) {
       this.resourceManager.sellProduct(1, house.sell());
     }
@@ -46,11 +39,10 @@ define(['models/resource-manager', 'models/house','models/supply-offer', 'models
   }
 
   Controller.prototype.addHouse = function(args) {
-    var house = new House(args);
-    document.querySelector("#" + house.id + " button").addEventListener('click', function() {
-      this.sellToHouse(house.id);
+    var houseId = this.neighborhood.addHouse(args);
+    document.querySelector("#" + houseId + " button").addEventListener('click', function() {
+      this.sellToHouse(houseId);
     }.bind(this));
-    this.houses.push(house);
     return this.houses;
   }
 
