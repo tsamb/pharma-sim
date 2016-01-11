@@ -14,13 +14,13 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood) {
   }
 
   Controller.prototype.init = function() {
-    this.addHouse({budget: 200, frequency: 5});
-    this.addHouse({budget: 300, frequency: 20});
-    this.addHouse({budget: 500, frequency: 30});
-    this.addSupplyOffer({amount: 10, price: 2500});
-    this.addSupplyOffer({amount: 100, price: 20000});
-    this.addSupplyOffer({amount: 500, price: 75000});
-    this.addSupplyOffer({amount: 1000, price: 120000});
+    this.addHouse({budget: 80, frequency: 5});
+    this.addHouse({budget: 100, frequency: 20});
+    this.addHouse({budget: 200, frequency: 30});
+    this.addSupplyOffer({amount: 10, price: 1000});
+    this.addSupplyOffer({amount: 100, price: 7500});
+    this.addSupplyOffer({amount: 500, price: 30000});
+    this.addSupplyOffer({amount: 1000, price: 50000});
   }
 
   Controller.prototype.coreCycle = function() {
