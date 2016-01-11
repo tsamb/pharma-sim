@@ -1,6 +1,6 @@
 define(['presenters/resource-manager-presenter', 'errors'], function(ResourceManagerPresenter, errors) {
   function ResourceManager() {
-    this.product = 10;
+    this.product = 0;
     this.capacity = 100;
     this.bankAccount = 5000;
     this.presenter = new ResourceManagerPresenter(this);
