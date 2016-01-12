@@ -21,6 +21,7 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood) {
     this.addSupplyOffer({amount: 100, price: 7500});
     this.addSupplyOffer({amount: 500, price: 30000});
     this.addSupplyOffer({amount: 1000, price: 50000});
+    document.getElementById("hq").getElementsByTagName("button")[0].addEventListener("click", function() { this.resourceManager.increaseCapacity(); }.bind(this));
   }
 
   Controller.prototype.coreCycle = function() {
