@@ -41,7 +41,9 @@ define(['presenters/experience-manager-presenter'], function(ExperienceManagerPr
   // <<<<<<<< MUTATOR METHODS >>>>>>>>
 
   ExperienceManager.prototype.increase = function(amount) {
+    var currentLevel = this.level();
     this.experience += amount;
+    if (currentLevel != this.level()) { /* play audio */ }
     this.presenter.refresh();
   }
 
