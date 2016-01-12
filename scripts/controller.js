@@ -15,8 +15,8 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood) {
 
   Controller.prototype.init = function() {
     this.addHouse({budget: 80, frequency: 5});
-    this.addHouse({budget: 100, frequency: 20});
-    this.addHouse({budget: 200, frequency: 30});
+    this.addHouse({budget: 120, frequency: 20});
+    this.addHouse({budget: 250, frequency: 30});
     this.addSupplyOffer({amount: 10, price: 1000});
     this.addSupplyOffer({amount: 100, price: 7500});
     this.addSupplyOffer({amount: 500, price: 30000});
