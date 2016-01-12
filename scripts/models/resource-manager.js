@@ -64,13 +64,10 @@ define(['models/experience-manager',
   }
 
   ResourceManager.prototype.increaseCapacity = function() {
-    // refactor this method into a headquarters class
-    var currentCapacityLevel = this.headquarters.capacity / 100;
-    var cashForNextCapacityLevel = Math.pow((currentCapacityLevel * 50), 2);
-    if (this.experienceManager.level() > currentCapacityLevel) {
-      if (this.cashIsAvailable(cashForNextCapacityLevel)) {
+    if (this.experienceManager.level() > this.headquarters.currentCapacityLevel()) {
+      if (this.cashIsAvailable(this.headquarters.cashForNextCapacityLevel())) {
+        this.bankAccount -= this.headquarters.cashForNextCapacityLevel();
         this.headquarters.increaseCapacity(100);
-        this.bankAccount -= cashForNextCapacityLevel;
         this.presenter.refresh();
       }
     } else {
