@@ -19,5 +19,13 @@ define(['models/house'], function(House) {
     return this.houses.find(function(house) { return house.id === houseId });
   }
 
+  Neighborhood.prototype.updateHype = function(hypeLevel) {
+    this.houses.forEach(function(house) {
+      if (!house.active) {
+        house.updateHype(hypeLevel);
+      }
+    });
+  }
+
   return Neighborhood;
 })

@@ -14,16 +14,21 @@ define(function() {
     houseElement.getElementsByClassName("budget")[0].innerText = "$" + this.object.budget;
     houseElement.getElementsByClassName("frequency")[0].innerText = this.object.frequency;
     houseElement.getElementsByClassName("ready")[0].innerText = this.object.readyText();
-    if (this.object.willingToBuy) {
+    if (this.object.willingToBuy && this.object.active) {
       houseElement.getElementsByTagName("button")[0].disabled = false;
     } else {
       houseElement.getElementsByTagName("button")[0].disabled = true;
+    }
+    if (this.object.active) {
+      houseElement.className = "house"
+    } else {
+      houseElement.className = "house inactive"
     }
   }
 
   HousePresenter.prototype.html = function() {
     var wrapper = document.createElement('div');
-    wrapper.innerHTML = "<div class='house' id='" + this.object.id + "'>" +
+    wrapper.innerHTML = "<div class='house" + (this.object.active ? "" : " inactive") + "' id='" + this.object.id + "'>" +
                         "  <h3>A House</h3>" +
                         "  <table>" +
                         "    <tr>" +

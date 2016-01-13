@@ -3,33 +3,59 @@ define(['models/resource-manager',
 'models/supply-offer',
 'models/days',
 'models/neighborhood',
-'models/marketing-manager'],
-function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManager) {
+'models/marketing-manager',
+'models/marketing-method'],
+function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManager, MarketingMethod) {
   var Controller = function() {
     this.days = new Days;
     this.resourceManager = new ResourceManager;
     this.neighborhood = new Neighborhood;
     this.marketingManager = new MarketingManager;
     this.supplyOffers = [];
+    this.marketingMethods = [];
     this.coreLoop = window.setInterval(this.coreCycle.bind(this), 500);
     this.init();
   }
 
+  // <<<<<<<< INITIAL SET UP >>>>>>>>
+
   Controller.prototype.init = function() {
-    this.addHouse({budget: 80, frequency: 5});
-    this.addHouse({budget: 120, frequency: 20});
-    this.addHouse({budget: 250, frequency: 30});
+    this.addHouse({budget: 80, frequency: 5, active: true, hypeToActivate: 0});
+    this.addHouse({budget: 120, frequency: 20, active: true, hypeToActivate: 0});
+    this.addHouse({budget: 250, frequency: 30, active: true, hypeToActivate: 0});
+    this.addHouse({budget: 150, frequency: 25, active: false, hypeToActivate: 2});
+    this.addHouse({budget: 200, frequency: 18, active: false, hypeToActivate: 3});
+    this.addHouse({budget: 300, frequency: 60, active: false, hypeToActivate: 3});
+    this.addHouse({budget: 100, frequency: 5, active: false, hypeToActivate: 4});
+    this.addHouse({budget: 120, frequency: 15, active: false, hypeToActivate: 4});
+    this.addHouse({budget: 180, frequency: 12, active: false, hypeToActivate: 5});
+
     this.addSupplyOffer({amount: 10, price: 1000});
     this.addSupplyOffer({amount: 100, price: 7500});
     this.addSupplyOffer({amount: 500, price: 30000});
     this.addSupplyOffer({amount: 1000, price: 50000});
+
+    this.addMarketingMethod({name: "Paper Boy", price: 500, hype: 1500});
+    this.addMarketingMethod({name: "Flyer Drop", price: 2000, hype: 8000});
+    this.addMarketingMethod({name: "Flyer Handout", price: 4000, hype: 20000});
+    this.addMarketingMethod({name: "Referral Program", price: 10000, hype: 60000});
+    this.addMarketingMethod({name: "Social Media", price: 30000, hype: 210000});
+    this.addMarketingMethod({name: "Web Banner Ads", price: 50000, hype: 400000});
+    this.addMarketingMethod({name: "Billboard", price: 100000, hype: 1000000});
+    this.addMarketingMethod({name: "TV Spot", price: 500000, hype: 6000000});
+    this.addMarketingMethod({name: "Superbowl Ad", price: 3000000, hype: 45000000});
+
     document.getElementById("hq").getElementsByTagName("button")[0].addEventListener("click", function() { this.resourceManager.increaseCapacity(); }.bind(this));
   }
+
+  // <<<<<<<< CORE LOOP >>>>>>>>
 
   Controller.prototype.coreCycle = function() {
     this.days.increment();
     this.neighborhood.updateHouseReadiness(this.days.count);
   }
+
+  // <<<<<<<< CONTROLLER METHODS >>>>>>>>
 
   Controller.prototype.sellToHouse = function(houseId) {
     var house = this.neighborhood.findHouse(houseId);
@@ -45,6 +71,18 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
     }
   }
 
+  Controller.prototype.purchaseMarketing = function(methodId) {
+    var method = this.marketingMethods.find(function(method) { return method.id === methodId });
+    if (method && this.resourceManager.cashIsAvailable(method.price)) {
+      this.resourceManager.processPurchase(method.price);
+      this.marketingManager.increaseHype(method.hype);
+      this.neighborhood.updateHype(this.marketingManager.level()); // maybe move marketing manager into neighborhood; that way the neighborhood can keep track of hype real time.
+      console.log("TEST TEST You just purchased " + method.name);
+    }
+  }
+
+  // <<<<<<<< MODEL INSTANTIATORS / EVENT BINDINGS >>>>>>>>
+
   Controller.prototype.addHouse = function(args) {
     var houseId = this.neighborhood.addHouse(args);
     document.querySelector("#" + houseId + " button").addEventListener('click', function() {
@@ -59,6 +97,15 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
     }.bind(this));
     this.supplyOffers.push(offer);
     return this.supplyOffers;
+  }
+
+  Controller.prototype.addMarketingMethod = function(args) {
+    var method = new MarketingMethod(args);
+    document.getElementById(method.id).addEventListener('click', function() {
+      this.purchaseMarketing(method.id);
+    }.bind(this));
+    this.marketingMethods.push(method);
+    return this.marketingMethods;
   }
 
   return Controller;

@@ -40,7 +40,7 @@ define(['presenters/marketing-manager-presenter'], function(MarketingManagerPres
 
   // <<<<<<<< MUTATOR METHODS >>>>>>>>
 
-  MarketingManager.prototype.payForMarketing = function(amount) {
+  MarketingManager.prototype.increaseHype = function(amount) {
     this.hype += amount;
     this.presenter.refresh();
   }

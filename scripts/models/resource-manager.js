@@ -43,6 +43,11 @@ define(['models/experience-manager',
 
   // <<<<<<<< MUTATOR METHODS >>>>>>>>
 
+  ResourceManager.prototype.processPurchase = function(amount) {
+    this.bankAccount -= amount;
+    this.presenter.refresh();
+  }
+
   ResourceManager.prototype.sellProduct = function(amount, cash) {
     if (this.productIsAvailable()) {
       this.experienceManager.increase(amount * cash)

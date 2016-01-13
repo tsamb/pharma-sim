@@ -1,9 +1,11 @@
 define(['presenters/house-presenter', 'errors'], function(HousePresenter, errors) {
-    function House(args) {
+  function House(args) {
     House.numInstances = (House.numInstances || 0) + 1;
     this.budget = args.budget;
     this.frequency = args.frequency;
     this.willingToBuy = false;
+    this.active = args.active || false;
+    this.hypeToActivate = args.hypeToActivate || 0
     this.id = this.constructor.name.toLowerCase() + "-" + House.numInstances;
     this.presenter = new HousePresenter(this);
   }
@@ -11,11 +13,15 @@ define(['presenters/house-presenter', 'errors'], function(HousePresenter, errors
   // <<<<<<<< IMMUTABLE BOOLEAN CHECKS >>>>>>>>
 
   House.prototype.ready = function() {
-    if (this.willingToBuy) {
-      return true;
+    if (this.active) {
+      if (this.willingToBuy) {
+        return true;
+      } else {
+        errors.add("house is not ready to make a purchase");
+        return false;
+      }
     } else {
-      errors.add("house is not ready to make a purchase");
-      return false;
+      errors.add("house is unavailable for business. try marketing")
     }
   }
 
@@ -37,6 +43,13 @@ define(['presenters/house-presenter', 'errors'], function(HousePresenter, errors
     }
   }
 
+  House.prototype.updateHype = function(hypeLevel) {
+    if (hypeLevel >= this.hypeToActivate) {
+      this.active = true;
+      this.presenter.refresh();
+    }
+  }
+
   House.prototype.updateReadiness = function(today) {
     if (this.daysUntilReady(today) === 0) {
       this.willingToBuy = true;
@@ -45,8 +58,8 @@ define(['presenters/house-presenter', 'errors'], function(HousePresenter, errors
   }
 
   House.prototype.readyText = function() {
-    if (this.willingToBuy) {
-      return "$$$ Ready $$$";
+    if (this.willingToBuy && this.active) {
+      return "$ Ready $";
     } else {
       return "Not ready";
     }

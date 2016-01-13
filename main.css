@@ -15,6 +15,23 @@ div#wrapper {
 }
 
 .house {
-  width: 230px;
+  width: 210px;
+  height: 150px;
   display: inline-block;
+  position: relative;
+  margin-bottom: 20px;
+  margin-right: 20px
+}
+
+.house.inactive:after {
+  content: "";
+   z-index: 10;
+   display: block;
+   position: absolute;
+   width: 210px;
+   height: 150px;
+   top: 0;
+   left: 0;
+   right: 0;
+   background: rgba(250, 0, 0, 0.5);
 }
