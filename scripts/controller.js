@@ -2,12 +2,14 @@ define(['models/resource-manager',
 'models/house',
 'models/supply-offer',
 'models/days',
-'models/neighborhood'],
-function(ResourceManager, House, SupplyOffer, Days, Neighborhood) {
+'models/neighborhood',
+'models/marketing-manager'],
+function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManager) {
   var Controller = function() {
     this.days = new Days;
     this.resourceManager = new ResourceManager;
     this.neighborhood = new Neighborhood;
+    this.marketingManager = new MarketingManager;
     this.supplyOffers = [];
     this.coreLoop = window.setInterval(this.coreCycle.bind(this), 500);
     this.init();
