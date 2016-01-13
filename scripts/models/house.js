@@ -46,7 +46,7 @@ define(['presenters/house-presenter', 'errors'], function(HousePresenter, errors
 
   House.prototype.readyText = function() {
     if (this.willingToBuy) {
-      return "$$$ Ready to buy $$$";
+      return "$$$ Ready $$$";
     } else {
       return "Not ready";
     }

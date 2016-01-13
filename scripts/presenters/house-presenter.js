@@ -23,7 +23,7 @@ define(function() {
 
   HousePresenter.prototype.html = function() {
     var wrapper = document.createElement('div');
-    wrapper.innerHTML = "<div id='" + this.object.id + "'>" +
+    wrapper.innerHTML = "<div class='house' id='" + this.object.id + "'>" +
                         "  <h3>A House</h3>" +
                         "  <table>" +
                         "    <tr>" +

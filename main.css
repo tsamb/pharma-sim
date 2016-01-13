@@ -2,7 +2,7 @@ div#errors {
   position: absolute;
   top: 20px;
   left: 0px;
-  height: 700px;
+  height: 750px;
   width: 200px;
   overflow: hidden;
 }
@@ -12,4 +12,9 @@ div#wrapper {
     width: 700px;
     padding: 20px 0 0 220px;
     position: relative;
+}
+
+.house {
+  width: 230px;
+  display: inline-block;
 }
