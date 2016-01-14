@@ -77,7 +77,6 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
       this.resourceManager.processPurchase(method.price);
       this.marketingManager.increaseHype(method.hype);
       this.neighborhood.updateHype(this.marketingManager.level()); // maybe move marketing manager into neighborhood; that way the neighborhood can keep track of hype real time.
-      console.log("TEST TEST You just purchased " + method.name);
     }
   }
 
