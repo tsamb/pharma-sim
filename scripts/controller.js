@@ -53,6 +53,8 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
   Controller.prototype.coreCycle = function() {
     this.days.increment();
     this.neighborhood.updateHouseReadiness(this.days.count);
+    this.marketingManager.organicHypeFade();
+    this.neighborhood.updateHype(this.marketingManager.level());
   }
 
   // <<<<<<<< CONTROLLER METHODS >>>>>>>>
@@ -76,7 +78,6 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
     if (method && this.resourceManager.cashIsAvailable(method.price)) {
       this.resourceManager.processPurchase(method.price);
       this.marketingManager.increaseHype(method.hype);
-      this.neighborhood.updateHype(this.marketingManager.level()); // maybe move marketing manager into neighborhood; that way the neighborhood can keep track of hype real time.
     }
   }
 
