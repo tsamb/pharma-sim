@@ -1,4 +1,4 @@
-define(['presenters/house-presenter', 'errors'], function(HousePresenter, errors) {
+define(['presenters/house-presenter', 'models/marketing-manager', 'errors'], function(HousePresenter, MarketingManager, errors) {
   function House(args) {
     House.numInstances = (House.numInstances || 0) + 1;
     this.budget = args.budget;
@@ -7,7 +7,22 @@ define(['presenters/house-presenter', 'errors'], function(HousePresenter, errors
     this.active = args.active || false;
     this.hypeToActivate = args.hypeToActivate || 0
     this.id = this.constructor.name.toLowerCase() + "-" + House.numInstances;
+    this.marketingManager = MarketingManager;
     this.presenter = new HousePresenter(this);
+  }
+
+  // <<<<<<<< COMPUTED PROPERTIES >>>>>>>>
+
+  House.prototype.currentBudget = function() {
+    return Math.floor(this.budget * Math.log10(9 + this.marketingManager.level()))
+  }
+
+  House.prototype.readyText = function() {
+    if (this.willingToBuy && this.active) {
+      return "$ Ready $";
+    } else {
+      return "Not ready";
+    }
   }
 
   // <<<<<<<< IMMUTABLE BOOLEAN CHECKS >>>>>>>>
@@ -37,31 +52,23 @@ define(['presenters/house-presenter', 'errors'], function(HousePresenter, errors
     if (this.willingToBuy) {
       this.willingToBuy = false;
       this.presenter.refresh();
-      return this.budget;
+      return this.currentBudget();
     } else {
       return 0;
     }
   }
 
-  House.prototype.updateHype = function(hypeLevel) {
-    if (hypeLevel >= this.hypeToActivate) {
+  House.prototype.updateHype = function() {
+    if (!this.active && this.marketingManager.level() >= this.hypeToActivate) {
       this.active = true;
-      this.presenter.refresh();
     }
+    this.presenter.refresh();
   }
 
   House.prototype.updateReadiness = function(today) {
     if (this.daysUntilReady(today) === 0) {
       this.willingToBuy = true;
       this.presenter.refresh();
-    }
-  }
-
-  House.prototype.readyText = function() {
-    if (this.willingToBuy && this.active) {
-      return "$ Ready $";
-    } else {
-      return "Not ready";
     }
   }
 

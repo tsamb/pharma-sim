@@ -11,7 +11,7 @@ define(function() {
 
   HousePresenter.prototype.refresh = function() {
     var houseElement = document.getElementById(this.object.id);
-    houseElement.getElementsByClassName("budget")[0].innerText = "$" + this.object.budget;
+    houseElement.getElementsByClassName("budget")[0].innerText = "$" + this.object.currentBudget();
     houseElement.getElementsByClassName("frequency")[0].innerText = this.object.frequency;
     houseElement.getElementsByClassName("ready")[0].innerText = this.object.readyText();
     if (this.object.willingToBuy && this.object.active) {
@@ -33,7 +33,7 @@ define(function() {
                         "  <table>" +
                         "    <tr>" +
                         "      <td>Budget:</td>" +
-                        "      <td class='budget'>$" + this.object.budget + "</td>" +
+                        "      <td class='budget'>$" + this.object.currentBudget() + "</td>" +
                         "    </tr>" +
                         "    <tr>" +
                         "      <td>Will buy every:</td>" +

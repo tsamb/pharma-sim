@@ -10,7 +10,7 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
     this.days = new Days;
     this.resourceManager = new ResourceManager;
     this.neighborhood = new Neighborhood;
-    this.marketingManager = new MarketingManager;
+    this.marketingManager = MarketingManager;
     this.supplyOffers = [];
     this.marketingMethods = [];
     this.coreLoop = window.setInterval(this.coreCycle.bind(this), 500);
@@ -54,7 +54,7 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
     this.days.increment();
     this.neighborhood.updateHouseReadiness(this.days.count);
     this.marketingManager.organicHypeFade();
-    this.neighborhood.updateHype(this.marketingManager.level());
+    this.neighborhood.updateHype();
   }
 
   // <<<<<<<< CONTROLLER METHODS >>>>>>>>

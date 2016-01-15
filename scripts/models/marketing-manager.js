@@ -47,7 +47,7 @@ define(['presenters/marketing-manager-presenter'], function(MarketingManagerPres
   }
 
   MarketingManager.prototype.decreaseHype = function(amount) {
-    this.hype -= Math.floor(amount);
+    this.hype -= Math.ceil(amount);
     this.presenter.refresh();
   }
 
@@ -59,5 +59,5 @@ define(['presenters/marketing-manager-presenter'], function(MarketingManagerPres
     }
   }
 
-  return MarketingManager;
+  return new MarketingManager;
 })
