@@ -14,7 +14,11 @@ define(['presenters/house-presenter', 'models/marketing-manager', 'errors'], fun
   // <<<<<<<< COMPUTED PROPERTIES >>>>>>>>
 
   House.prototype.currentBudget = function() {
-    return Math.floor(this.budget * Math.log10(9 + this.marketingManager.level()))
+    return Math.floor(this.budget * Math.log10(9 + this.marketingManager.level()));
+  }
+
+  House.prototype.currentFrequency = function() {
+    return Math.ceil(this.frequency / Math.log10(9 + this.marketingManager.level()));
   }
 
   House.prototype.readyText = function() {
@@ -43,7 +47,7 @@ define(['presenters/house-presenter', 'models/marketing-manager', 'errors'], fun
   // <<<<<<<< IMMUTABLE CALCULATIONS >>>>>>>>
 
   House.prototype.daysUntilReady = function(day) {
-    return day % this.frequency;
+    return day % this.currentFrequency();
   }
 
   // <<<<<<<< MUTATOR METHODS >>>>>>>>

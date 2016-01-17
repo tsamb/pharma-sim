@@ -12,7 +12,7 @@ define(function() {
   HousePresenter.prototype.refresh = function() {
     var houseElement = document.getElementById(this.object.id);
     houseElement.getElementsByClassName("budget")[0].innerText = "$" + this.object.currentBudget();
-    houseElement.getElementsByClassName("frequency")[0].innerText = this.object.frequency;
+    houseElement.getElementsByClassName("frequency")[0].innerText = this.object.currentFrequency();
     houseElement.getElementsByClassName("ready")[0].innerText = this.object.readyText();
     if (this.object.willingToBuy && this.object.active) {
       houseElement.getElementsByTagName("button")[0].disabled = false;
@@ -37,7 +37,7 @@ define(function() {
                         "    </tr>" +
                         "    <tr>" +
                         "      <td>Will buy every:</td>" +
-                        "      <td><span class='frequency'>" + this.object.frequency + "</span> days</td>" +
+                        "      <td><span class='frequency'>" + this.object.currentFrequency() + "</span> days</td>" +
                         "    </tr>" +
                         "    <tr>" +
                         "      <td>Ready to buy:</td>" +
