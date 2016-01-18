@@ -5,7 +5,7 @@ define(['presenters/house-presenter', 'models/marketing-manager', 'errors'], fun
     this.frequency = args.frequency;
     this.willingToBuy = false;
     this.active = args.active || false;
-    this.hypeToActivate = args.hypeToActivate || 0
+    this.hypeToActivate = args.hypeToActivate || 0;
     this.id = this.constructor.name.toLowerCase() + "-" + House.numInstances;
     this.marketingManager = MarketingManager;
     this.presenter = new HousePresenter(this);
@@ -40,7 +40,7 @@ define(['presenters/house-presenter', 'models/marketing-manager', 'errors'], fun
         return false;
       }
     } else {
-      errors.add("house is unavailable for business. try marketing")
+      errors.add("house is unavailable for business. try marketing");
     }
   }
 
