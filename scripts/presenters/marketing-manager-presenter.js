@@ -1,20 +1,20 @@
 define(function() {
-  function ExperienceManagerPresenter(object) {
+  function MarketingManagerPresenter(object) {
     this.parentContainer = document.getElementById("hype");
     this.object = object;
     this.init();
   }
 
-  ExperienceManagerPresenter.prototype.init = function() {
+  MarketingManagerPresenter.prototype.init = function() {
     this.parentContainer.appendChild(this.html());
   }
 
-  ExperienceManagerPresenter.prototype.refresh = function() {
+  MarketingManagerPresenter.prototype.refresh = function() {
     this.parentContainer.getElementsByClassName("level")[0].innerText = this.object.level();
     this.parentContainer.getElementsByClassName("level-progress")[0].value = this.object.percentageOfCurrentLevelComplete();
   }
 
-  ExperienceManagerPresenter.prototype.html = function() {
+  MarketingManagerPresenter.prototype.html = function() {
     var wrapper = document.createElement('div');
     wrapper.innerHTML = "<table>" +
                         "<tr><td>Current hype:</td><td class='level'>" + this.object.level() + "</td></tr>" +
@@ -23,5 +23,5 @@ define(function() {
     return wrapper.firstChild;
   }
 
-  return ExperienceManagerPresenter;
+  return MarketingManagerPresenter;
 });
