@@ -22,13 +22,19 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
   Controller.prototype.init = function() {
     this.addHouse({budget: 80, frequency: 5, active: true, hypeToActivate: 0});
     this.addHouse({budget: 120, frequency: 20, active: true, hypeToActivate: 0});
+    this.addHouse({budget: 150, frequency: 23, active: true, hypeToActivate: 0});
     this.addHouse({budget: 250, frequency: 30, active: true, hypeToActivate: 0});
     this.addHouse({budget: 150, frequency: 25, active: false, hypeToActivate: 2});
+    this.addHouse({budget: 180, frequency: 27, active: false, hypeToActivate: 2});
     this.addHouse({budget: 200, frequency: 18, active: false, hypeToActivate: 3});
-    this.addHouse({budget: 300, frequency: 60, active: false, hypeToActivate: 3});
+    this.addHouse({budget: 300, frequency: 60, active: false, hypeToActivate: 4});
+    this.addHouse({budget: 140, frequency: 16, active: false, hypeToActivate: 4});
     this.addHouse({budget: 100, frequency: 5, active: false, hypeToActivate: 4});
-    this.addHouse({budget: 120, frequency: 15, active: false, hypeToActivate: 4});
-    this.addHouse({budget: 180, frequency: 12, active: false, hypeToActivate: 5});
+    this.addHouse({budget: 140, frequency: 22, active: false, hypeToActivate: 5});
+    this.addHouse({budget: 120, frequency: 15, active: false, hypeToActivate: 5});
+    this.addHouse({budget: 180, frequency: 12, active: false, hypeToActivate: 6});
+    this.addHouse({budget: 320, frequency: 40, active: false, hypeToActivate: 6});
+    this.addHouse({budget: 240, frequency: 10, active: false, hypeToActivate: 7});
 
     this.addSupplyOffer({amount: 10, price: 1000});
     this.addSupplyOffer({amount: 100, price: 7500});
