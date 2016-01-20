@@ -41,6 +41,7 @@ define(['presenters/house-presenter', 'models/marketing-manager', 'errors/errors
       }
     } else {
       errors.add("house is unavailable for business. try marketing");
+      return false;
     }
   }
 
