@@ -44,14 +44,18 @@ describe('House', function() {
   });
 
   describe('#currentBudget', function() {
-    xit('returns a value based on the base budget and current hype', function() {
-
+    it('returns a value based on the base budget and current hype', function() {
+      var house = new House({budget: 100, frequency: 5, active: true, hypeToActivate: 0});
+      house.marketingManager.level = function() { return 5 }; // stubbing out #level on the mocked MarketingManager
+      house.currentBudget().should.eql(114);
     });
   });
 
   describe('#currentFrequency', function() {
-    xit('returns a value based on the base frequency and current hype', function() {
-
+    it('returns a value based on the base frequency and current hype', function() {
+      var house = new House({budget: 100, frequency: 100, active: true, hypeToActivate: 0});
+      house.marketingManager.level = function() { return 5 }; // stubbing out #level on the mocked MarketingManager
+      house.currentFrequency().should.eql(88);
     });
   });
 
