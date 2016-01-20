@@ -63,12 +63,18 @@ describe('House', function() {
       house.readyText().should.eql("$ Ready $");
     });
 
-    xit('returns "Not ready" when the house is not active', function() {
-
+    it('returns "Not ready" when the house is not active', function() {
+      var house = new House({});
+      house.active = false;
+      house.willingToBuy = true;
+      house.readyText().should.eql("Not ready");
     });
 
-    xit('returns "Not ready" when the house is not willing to buy', function() {
-
+    it('returns "Not ready" when the house is not willing to buy', function() {
+      var house = new House({});
+      house.active = true;
+      house.willingToBuy = false;
+      house.readyText().should.eql("Not ready");
     });
   });
 });
