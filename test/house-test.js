@@ -77,4 +77,33 @@ describe('House', function() {
       house.readyText().should.eql("Not ready");
     });
   });
+
+  describe('#ready', function() {
+    it('returns true when the house is active and willing to buy', function() {
+      var house = new House({});
+      house.active = true;
+      house.willingToBuy = true;
+      house.ready().should.eql(true);
+    });
+
+    it('returns false when the house is not active', function() {
+      var house = new House({});
+      house.active = false;
+      house.willingToBuy = true;
+      house.ready().should.eql(false);
+    });
+
+    it('returns false when the house is not willing to buy', function() {
+      var house = new House({});
+      house.active = true;
+      house.willingToBuy = false;
+      house.ready().should.eql(false);
+    });
+  });
+
+  describe('#daysUntilReady', function() {
+    xit('given the current absolute day, returns the days until this house is ready to buy', function() {
+
+    });
+  });
 });
