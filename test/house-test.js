@@ -42,4 +42,33 @@ describe('House', function() {
       house.willingToBuy.should.eql(false);
     });
   });
+
+  describe('#currentBudget', function() {
+    xit('returns a value based on the base budget and current hype', function() {
+
+    });
+  });
+
+  describe('#currentFrequency', function() {
+    xit('returns a value based on the base frequency and current hype', function() {
+
+    });
+  });
+
+  describe('#readyText', function() {
+    it('returns "$ READY $" when the house is active and willing to buy', function() {
+      var house = new House({});
+      house.active = true;
+      house.willingToBuy = true;
+      house.readyText().should.eql("$ Ready $");
+    });
+
+    xit('returns "Not ready" when the house is not active', function() {
+
+    });
+
+    xit('returns "Not ready" when the house is not willing to buy', function() {
+
+    });
+  });
 });
