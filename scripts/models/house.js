@@ -1,4 +1,4 @@
-define(['presenters/house-presenter', 'models/marketing-manager', 'errors'], function(HousePresenter, MarketingManager, errors) {
+define(['presenters/house-presenter', 'models/marketing-manager', 'errors/errors'], function(HousePresenter, MarketingManager, errors) {
   function House(args) {
     House.numInstances = (House.numInstances || 0) + 1;
     this.budget = args.budget;

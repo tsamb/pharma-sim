@@ -2,7 +2,8 @@ requirejs.config({
     baseUrl: 'scripts',
     paths: {
         models: './models',
-        presenters: './presenters'
+        presenters: './presenters',
+        errors: './errors'
     }
 });
 

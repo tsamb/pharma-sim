@@ -1,7 +1,7 @@
 define(['models/experience-manager',
 'models/headquarters',
 'presenters/resource-manager-presenter',
-'errors'], function(ExperienceManager, Headquarters, ResourceManagerPresenter, errors) {
+'errors/errors'], function(ExperienceManager, Headquarters, ResourceManagerPresenter, errors) {
   var BUY_XP_MULTIPLE = 50;
 
   function ResourceManager() {
