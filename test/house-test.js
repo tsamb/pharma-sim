@@ -34,5 +34,12 @@ describe('House', function() {
       var house = new House({});
       house.id.should.match(/house-.*/);
     });
+
+    it('should set defaults', function() {
+      var house = new House({});
+      house.hypeToActivate.should.eql(0);
+      house.active.should.eql(false);
+      house.willingToBuy.should.eql(false);
+    });
   });
 });
