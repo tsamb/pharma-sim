@@ -48,7 +48,13 @@ define(['presenters/house-presenter', 'models/marketing-manager', 'errors/errors
   // <<<<<<<< IMMUTABLE CALCULATIONS >>>>>>>>
 
   House.prototype.daysUntilReady = function(day) {
-    return day % this.currentFrequency();
+    var freq = this.currentFrequency();
+    var cycleDay = day % freq;
+    if (cycleDay === 0) {
+      return 0;
+    } else {
+      return freq - cycleDay;
+    }
   }
 
   // <<<<<<<< MUTATOR METHODS >>>>>>>>
