@@ -110,5 +110,10 @@ describe('House', function() {
       var house = new House({budget: 80, frequency: 5, active: true, hypeToActivate: 0});
       house.daysUntilReady(9).should.eql(1);
     });
+
+    it('given the current absolute day, returns the days until this house is ready to buy', function() {
+      var house = new House({budget: 80, frequency: 5, active: true, hypeToActivate: 0});
+      house.daysUntilReady(10).should.eql(0);
+    });
   });
 });
