@@ -106,8 +106,9 @@ describe('House', function() {
   });
 
   describe('#daysUntilReady', function() {
-    xit('given the current absolute day, returns the days until this house is ready to buy', function() {
-
+    it('given the current absolute day, returns the days until this house is ready to buy', function() {
+      var house = new House({budget: 80, frequency: 5, active: true, hypeToActivate: 0});
+      house.daysUntilReady(9).should.eql(1);
     });
   });
 });
