@@ -123,4 +123,20 @@ describe('House', function() {
       house.marketingManager.level = function() {};
     });
   });
+
+  describe('#sell', function() {
+    it('returns 0 if house is not willing to buy', function() {
+      var house = new House({budget: 80, frequency: 5, active: true, hypeToActivate: 0});
+      house.willingToBuy = false;
+      house.sell().should.eql(0);
+    });
+
+    it('returns the house\'s budget if willing to buy', function() {
+      var house = new House({budget: 80, frequency: 5, active: true, hypeToActivate: 0});
+      house.willingToBuy = true;
+      house.marketingManager.level = function() { return 1 };
+      house.sell().should.eql(80);
+      house.marketingManager.level = function() {};
+    });
+  });
 });
