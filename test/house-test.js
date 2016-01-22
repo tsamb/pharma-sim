@@ -49,6 +49,7 @@ describe('House', function() {
       var house = new House({budget: 100, frequency: 5, active: true, hypeToActivate: 0});
       house.marketingManager.level = function() { return 5 }; // stubbing out #level on the mocked MarketingManager
       house.currentBudget().should.eql(114);
+      house.marketingManager.level = function() {};
     });
   });
 
@@ -57,6 +58,7 @@ describe('House', function() {
       var house = new House({budget: 100, frequency: 100, active: true, hypeToActivate: 0});
       house.marketingManager.level = function() { return 5 }; // stubbing out #level on the mocked MarketingManager
       house.currentFrequency().should.eql(88);
+      house.marketingManager.level = function() {};
     });
   });
 
@@ -109,12 +111,16 @@ describe('House', function() {
   describe('#daysUntilReady', function() {
     it('given the current absolute day, returns the days until this house is ready to buy', function() {
       var house = new House({budget: 80, frequency: 5, active: true, hypeToActivate: 0});
+      house.marketingManager.level = function() { return 1 };
       house.daysUntilReady(9).should.eql(1);
+      house.marketingManager.level = function() {};
     });
 
     it('given the current absolute day, returns the days until this house is ready to buy', function() {
       var house = new House({budget: 80, frequency: 5, active: true, hypeToActivate: 0});
+      house.marketingManager.level = function() { return 1 };
       house.daysUntilReady(10).should.eql(0);
+      house.marketingManager.level = function() {};
     });
   });
 });
