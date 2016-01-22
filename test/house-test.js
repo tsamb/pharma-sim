@@ -5,7 +5,8 @@ requirejs.config({
   baseUrl: 'scripts',
   paths: {
     models: 'models',
-    presenters: '../test/mocks/presenters'
+    presenters: '../test/mocks/presenters',
+    errors: '../test/mocks/errors'
   }
 });
 
