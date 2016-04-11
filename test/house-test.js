@@ -139,4 +139,12 @@ describe('House', function() {
       house.marketingManager.level = function() {};
     });
   });
+
+  describe('#updateHype', function() {
+
+  });
+
+  describe('#updateReadiness', function() {
+
+  });
 });
