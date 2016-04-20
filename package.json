@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/tsamb/pharma-sim",
   "dependencies": {
+    "requirejs": "^2.2.0",
     "mocha": "^2.3.4",
     "should": "^8.1.1"
   }
