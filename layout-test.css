@@ -24,7 +24,7 @@
 
 .top-bar {
   background-color: #eeaaee;
-  height: 50px;
+  height: 60px;
 }
 
 .meter-container {
@@ -36,6 +36,16 @@
 progress {
   margin: 0 auto;
   width: 80%;
+}
+
+#messages {
+  height: 60px;
+  overflow: hidden;
+}
+
+#neighborhood-view {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 

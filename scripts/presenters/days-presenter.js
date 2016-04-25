@@ -1,24 +1,16 @@
 define(function() {
   function DaysPresenter(object) {
-    this.parentContainer = document.getElementById("days");
+    this.element = document.getElementById("day-count");
     this.object = object;
     this.init();
   }
 
   DaysPresenter.prototype.init = function() {
-    this.parentContainer.appendChild(this.html());
+    this.refresh();
   }
 
   DaysPresenter.prototype.refresh = function() {
-    this.parentContainer.getElementsByClassName("count")[0].innerText = this.object.count;
-  }
-
-  DaysPresenter.prototype.html = function() {
-    var wrapper = document.createElement('div');
-    wrapper.innerHTML = "<table>" +
-                        "<tr><td>Day:</td><td class='count'>" + this.object.count + "</td></tr>" +
-                        "</table>";
-    return wrapper.firstChild;
+    this.element.innerText = this.object.count;
   }
 
   return DaysPresenter;

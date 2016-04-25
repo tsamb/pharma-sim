@@ -1,6 +1,6 @@
 define(function() {
   function ResourceManagerPresenter(object) {
-    this.parentContainer = document.getElementById("resources");
+    this.parentContainer = document.getElementById("stock");
     this.object = object;
     this.init();
   }

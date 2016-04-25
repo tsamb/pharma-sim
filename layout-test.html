@@ -6,10 +6,13 @@
 <body>
   <div class="main-container">
     <div class="side-panel">
-      Side panel
       <div class="time-money-row">
         <div class="time-money-item">$100K</div>
-        <div class="time-money-item">Y:0,M:5,D:10</div>
+        <div class="time-money-item">Day: <span id="day-count"></span></div>
+      </div>
+      <div id="stock"></div>
+      <div id="messages">
+        <!-- ERRORS AND MESSAGES RENDERED HERE -->
       </div>
       <div class="selectors">
         <button>Map</button>
@@ -19,26 +22,45 @@
         <button>Lobbying</button>
         <button>Labor</button>
       </div>
-      <div class="product-row">
-      Products go here
+      <div class="purchasable-row">
+        <div id="property-upgrades">
+          <!-- PROPERTY UPGRADES RENDERED HERE -->
+        </div>
+        <div id="marketing-methods">
+          <!-- WAYS TO ADVERTISE RENDERED HERE -->
+        </div>
+        <div id="marketplace">
+          <!-- PRODUCT TO PURCHASE RENDERED HERE -->
+        </div>
       </div>
     </div>
     <div class="main-panel">
       <div class="top-bar">
-        <div class="meter-container">
+        <div class="meter-container" id="xp-meter-container">
           <div>XP</div>
-          <progress value="" max="">
+          <progress class="level-progress" value="" max="100"></progress>
+          <div>
+            Level: <span class="level"></span>
+          </div>
         </div>
-        <div class="meter-container">
+        <div class="meter-container" id="hype-meter-container">
           <div>Hype</div>
-          <progress value="" max="">
+          <progress class="level-progress" value="" max="100"></progress>
+          <div>
+            Level: <span class="level"></span>
+          </div>
         </div>
         <div class="meter-container">
           <div>Heat</div>
-          <progress value="" max="">
+          <progress class="level-progress" value="" max="100"></progress>
+          <div>
+            Level: <span class="level"></span>
+          </div>
         </div>
       </div>
-      Oh hai there, I'm the main container.
+      <div id="neighborhood-view">
+        <!-- HOUSES RENDERED HERE -->
+      </div>
     </div>
   </div>
 </body>

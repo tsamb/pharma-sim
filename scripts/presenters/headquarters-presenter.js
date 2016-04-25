@@ -1,6 +1,6 @@
 define(function() {
   function HeadquartersPresenter(object) {
-    this.parentContainer = document.getElementById("hq");
+    this.parentContainer = document.getElementById("property-upgrades");
     this.object = object;
     this.init();
   }
