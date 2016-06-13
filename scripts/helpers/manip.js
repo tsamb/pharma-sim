@@ -1,15 +1,14 @@
 define(function() {
   var Manip = {};
 
-  Manip.removeClassFrom = function(el, class) {
-    var els = document.querySelectorAll(selector);
+  Manip.removeClassFrom = function(els, klass) {
     [].forEach.call(els, function(el) {
-        el.classList.remove("active");
+        el.classList.remove(klass);
     });
   }
 
-  Manip.addClassTo = function(el) {
-    el.classList.add("active");
+  Manip.addClassTo = function(el, klass) {
+    el.classList.add(klass);
   }
 
   return Manip;

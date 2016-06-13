@@ -51,7 +51,10 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
     this.addMarketingMethod({name: "Billboard", price: 100000, hype: 1000000});
     this.addMarketingMethod({name: "TV Spot", price: 500000, hype: 6000000});
     this.addMarketingMethod({name: "Superbowl Ad", price: 3000000, hype: 45000000});
-    document.getElementById("property-upgrades").getElementsByTagName("button")[0].addEventListener("click", function() { this.resourceManager.increaseCapacity(); }.bind(this));
+
+    this.addPropertyUpgrade();
+
+    this.addPurchasableSwitches();
   }
 
   // <<<<<<<< CORE LOOP >>>>>>>>
@@ -112,6 +115,23 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
     }.bind(this));
     this.marketingMethods.push(method);
     return this.marketingMethods;
+  }
+
+  Controller.prototype.addPropertyUpgrade = function() {
+    document.getElementById("property-upgrades").getElementsByTagName("button")[0].addEventListener("click", function() { this.resourceManager.increaseCapacity(); }.bind(this));
+  }
+
+  Controller.prototype.addPurchasableSwitches = function() {
+    this.addPurchasableSwitch("marketplace-switch", "marketplace");
+    this.addPurchasableSwitch("property-switch", "property-upgrades");
+    // this.addPurchasableSwitch("map-switch","");
+    this.addPurchasableSwitch("marketing-switch", "marketing-methods");
+    // this.addPurchasableSwitch("lobbying-switch", "");
+    // this.addPurchasableSwitch("labor-switch", "");
+  }
+
+  Controller.prototype.addPurchasableSwitch = function(switchId, containerId) {
+    document.getElementById(switchId).addEventListener("click", function() { Manip.removeClassFrom(document.querySelectorAll(".purchasable"), "active"); Manip.addClassTo(document.getElementById(containerId), "active") });
   }
 
   return Controller;
