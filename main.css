@@ -1,37 +1,56 @@
-div#errors {
-  position: absolute;
-  top: 20px;
-  left: 0px;
-  height: 750px;
+.main-container {
+  display: flex;
+  width: 1200px;
+  height: 600px;
+}
+
+.side-panel {
+  background-color: #eeeeaa;
   width: 200px;
+}
+
+.time-money-row {
+  display: flex;
+}
+
+.time-money-item {
+  flex: 1;
+}
+
+.main-panel {
+  background-color: #aaeeee;
+  flex: 1;
+}
+
+.top-bar {
+  background-color: #eeaaee;
+  height: 60px;
+}
+
+.meter-container {
+  display: inline-block;
+  width: 33%;
+  text-align: center;
+}
+
+progress {
+  margin: 0 auto;
+  width: 80%;
+}
+
+#messages {
+  height: 60px;
   overflow: hidden;
 }
 
-div#wrapper {
-    margin: auto;
-    width: 700px;
-    padding: 20px 0 0 220px;
-    position: relative;
+#neighborhood-view {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.house {
-  width: 210px;
-  height: 150px;
-  display: inline-block;
-  position: relative;
-  margin-bottom: 20px;
-  margin-right: 20px
-}
 
-.house.inactive:after {
-  content: "";
-   z-index: 10;
-   display: block;
-   position: absolute;
-   width: 210px;
-   height: 150px;
-   top: 0;
-   left: 0;
-   right: 0;
-   background: rgba(250, 0, 0, 0.5);
+/* Normalizers: */
+
+body {
+  margin: 0;
 }
