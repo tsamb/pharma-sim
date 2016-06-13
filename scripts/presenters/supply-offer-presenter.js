@@ -1,6 +1,6 @@
 define(function() {
   function SupplyOfferPresenter(object) {
-    this.parentContainer = document.getElementById("marketplace");
+    this.parentContainer = document.getElementById("supplyoffers");
     this.object = object;
     this.init();
   }

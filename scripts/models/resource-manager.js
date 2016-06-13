@@ -1,13 +1,13 @@
 define(['models/experience-manager',
-'models/storage-manager',
+'models/headquarters',
 'presenters/resource-manager-presenter',
-'errors/errors'], function(ExperienceManager, StorageManager, ResourceManagerPresenter, errors) {
+'errors/errors'], function(ExperienceManager, Headquarters, ResourceManagerPresenter, errors) {
   var BUY_XP_MULTIPLE = 50;
 
   function ResourceManager() {
     this.product = 0;
     this.bankAccount = 5000;
-    this.storageManager = new StorageManager({capacity: 100});
+    this.headquarters = new Headquarters({capacity: 100});
     this.experienceManager = new ExperienceManager;
     this.presenter = new ResourceManagerPresenter(this);
   }
@@ -33,7 +33,7 @@ define(['models/experience-manager',
   }
 
   ResourceManager.prototype.capacityIsAvailable = function(productAmount) {
-    if (this.product + productAmount <= this.storageManager.capacity) {
+    if (this.product + productAmount <= this.headquarters.capacity) {
       return true;
     } else {
       errors.add("insufficient space in the store house");
@@ -69,10 +69,10 @@ define(['models/experience-manager',
   }
 
   ResourceManager.prototype.increaseCapacity = function() {
-    if (this.experienceManager.level() > this.storageManager.currentCapacityLevel()) {
-      if (this.cashIsAvailable(this.storageManager.cashForNextCapacityLevel())) {
-        this.bankAccount -= this.storageManager.cashForNextCapacityLevel();
-        this.storageManager.increaseCapacity(100);
+    if (this.experienceManager.level() > this.headquarters.currentCapacityLevel()) {
+      if (this.cashIsAvailable(this.headquarters.cashForNextCapacityLevel())) {
+        this.bankAccount -= this.headquarters.cashForNextCapacityLevel();
+        this.headquarters.increaseCapacity(100);
         this.presenter.refresh();
       }
     } else {

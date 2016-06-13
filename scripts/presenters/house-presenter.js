@@ -1,6 +1,6 @@
 define(function() {
   function HousePresenter(object) {
-    this.parentContainer = document.getElementById("neighborhood-view");
+    this.parentContainer = document.getElementById("houses");
     this.object = object;
     this.init();
   }

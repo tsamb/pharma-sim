@@ -50,7 +50,8 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
     this.addMarketingMethod({name: "Billboard", price: 100000, hype: 1000000});
     this.addMarketingMethod({name: "TV Spot", price: 500000, hype: 6000000});
     this.addMarketingMethod({name: "Superbowl Ad", price: 3000000, hype: 45000000});
-    document.getElementById("property-upgrades").getElementsByTagName("button")[0].addEventListener("click", function() { this.resourceManager.increaseCapacity(); }.bind(this));
+
+    document.getElementById("hq").getElementsByTagName("button")[0].addEventListener("click", function() { this.resourceManager.increaseCapacity(); }.bind(this));
   }
 
   // <<<<<<<< CORE LOOP >>>>>>>>
