@@ -3,7 +3,8 @@ requirejs.config({
     paths: {
         models: './models',
         presenters: './presenters',
-        errors: './errors'
+        errors: './errors',
+        helpers: './helpers'
     }
 });
 

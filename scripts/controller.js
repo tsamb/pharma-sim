@@ -4,8 +4,9 @@ define(['models/resource-manager',
 'models/days',
 'models/neighborhood',
 'models/marketing-manager',
-'models/marketing-method'],
-function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManager, MarketingMethod) {
+'models/marketing-method',
+'helpers/manip'],
+function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManager, MarketingMethod, Manip) {
   var Controller = function() {
     this.days = new Days;
     this.resourceManager = new ResourceManager;
