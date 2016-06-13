@@ -17,6 +17,18 @@
   flex: 1;
 }
 
+.purchasable-row {
+
+}
+
+.purchasable {
+  display: none;
+}
+
+.purchasable.active {
+  display: block;
+}
+
 .main-panel {
   background-color: #aaeeee;
   flex: 1;
