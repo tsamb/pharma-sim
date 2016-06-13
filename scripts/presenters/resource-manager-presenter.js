@@ -2,26 +2,13 @@ define(function() {
   function ResourceManagerPresenter(object) {
     this.parentContainer = document.getElementById("stock");
     this.object = object;
-    this.init();
-  }
-
-  ResourceManagerPresenter.prototype.init = function() {
-    this.parentContainer.appendChild(this.html());
+    this.refresh();
   }
 
   ResourceManagerPresenter.prototype.refresh = function() {
     document.getElementById('bank-balance').innerText = "$" + this.object.bankAccount;
     document.getElementById('product').innerText = this.object.product;
-    document.getElementById('capacity').innerText = this.object.headquarters.capacity; // move into HQ presenter ???
-  }
-
-  ResourceManagerPresenter.prototype.html = function() {
-    var wrapper = document.createElement('div');
-    wrapper.innerHTML = "<table>" +
-                        "<tr><td>Bank balance:</td><td id='bank-balance'>$" + this.object.bankAccount + "</td></tr>" +
-                        "<tr><td>Product / Capacity:</td><td><span id='product'>" + this.object.product + "</span> / <span id='capacity'>" + this.object.headquarters.capacity + "</span></td></tr>" +
-                        "</table>";
-    return wrapper;
+    document.getElementById('capacity').innerText = this.object.storageManager.capacity; // move into HQ/storageManager presenter ???
   }
 
   return ResourceManagerPresenter;

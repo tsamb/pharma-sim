@@ -7,10 +7,16 @@
   <div class="main-container">
     <div class="side-panel">
       <div class="time-money-row">
-        <div class="time-money-item">$100K</div>
+        <div id="bank-balance" class="time-money-item"></div>
         <div class="time-money-item">Day: <span id="day-count"></span></div>
       </div>
-      <div id="stock"></div>
+      <div id="stock">
+        <table>
+          <tr>
+            <td>Product / Capacity:</td><td><span id='product'></span> / <span id='capacity'></span></td>
+          </tr>
+        </table>
+      </div>
       <div id="messages">
         <!-- ERRORS AND MESSAGES RENDERED HERE -->
       </div>
