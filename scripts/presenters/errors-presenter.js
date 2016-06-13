@@ -1,6 +1,6 @@
 define(function() {
   function ErrorsPresenter(object) {
-    this.parentContainer = document.getElementById("errors");
+    this.parentContainer = document.getElementById("messages");
     this.object = object;
   }
 
