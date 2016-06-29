@@ -131,7 +131,12 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
   }
 
   Controller.prototype.addPurchasableSwitch = function(switchId, containerId) {
-    document.getElementById(switchId).addEventListener("click", function() { Manip.removeClassFrom(document.querySelectorAll(".purchasable"), "active"); Manip.addClassTo(document.getElementById(containerId), "active") });
+    document.getElementById(switchId).addEventListener("click", function() {
+      Manip.removeClassFrom(document.querySelectorAll(".purchasable"), "active");
+      Manip.addClassTo(document.getElementById(containerId), "active")
+      Manip.removeClassFrom(document.querySelectorAll(".selectors button"), "active");
+      Manip.addClassTo(document.getElementById(switchId), "active")
+    });
   }
 
   return Controller;

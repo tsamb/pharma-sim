@@ -62,9 +62,34 @@ progress {
   flex-wrap: wrap;
 }
 
+.selectors {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.selectors > button {
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 8px;
+  width: 50%;
+  padding: 10px;
+  border: none;
+  background-color: #4CAF50;
+}
+
+.selectors > button:focus {
+  outline: none;
+}
+
+.selectors > button.active {
+  background-color: #008CBA;
+}
 
 /* Normalizers: */
 
 body {
   margin: 0;
+}
+
+table {
+  font-size: inherit;
 }
