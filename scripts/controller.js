@@ -124,10 +124,10 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
   Controller.prototype.addPurchasableSwitches = function() {
     this.addPurchasableSwitch("marketplace-switch", "marketplace");
     this.addPurchasableSwitch("property-switch", "property-upgrades");
-    // this.addPurchasableSwitch("map-switch","");
+    this.addPurchasableSwitch("map-switch", "map-options");
     this.addPurchasableSwitch("marketing-switch", "marketing-methods");
-    // this.addPurchasableSwitch("lobbying-switch", "");
-    // this.addPurchasableSwitch("labor-switch", "");
+    this.addPurchasableSwitch("lobbying-switch", "lobbying-options");
+    this.addPurchasableSwitch("labor-switch", "labor-options");
   }
 
   Controller.prototype.addPurchasableSwitch = function(switchId, containerId) {
