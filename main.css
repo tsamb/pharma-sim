@@ -80,6 +80,10 @@ progress {
   outline: none;
 }
 
+.selectors > button:hover {
+  cursor: pointer;
+}
+
 .selectors > button.active {
   background-color: #008CBA;
 }
