@@ -94,7 +94,7 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
 
   Controller.prototype.addHouse = function(args) {
     var houseId = this.neighborhood.addHouse(args);
-    document.querySelector("#" + houseId + " button").addEventListener('click', function() {
+    document.getElementById(houseId).addEventListener('click', function() {
       this.sellToHouse(houseId);
     }.bind(this));
   }

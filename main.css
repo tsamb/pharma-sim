@@ -63,6 +63,8 @@ progress {
 }
 
 .house {
+  width: 132px;
+  height: 150px;
   background-image: url("images/house.png");
   background-position: center;
   background-repeat: no-repeat;
@@ -70,6 +72,7 @@ progress {
 
 .house.lights {
   background-image: url("images/house-lights.png");
+  cursor: pointer;
 }
 
 .house.grayscale {
