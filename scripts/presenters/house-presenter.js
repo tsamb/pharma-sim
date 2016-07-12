@@ -16,19 +16,27 @@ define(function() {
     houseElement.getElementsByClassName("ready")[0].innerText = this.object.readyText();
     if (this.object.willingToBuy && this.object.active) {
       houseElement.getElementsByTagName("button")[0].disabled = false;
+      houseElement.className = "house lights";
     } else {
       houseElement.getElementsByTagName("button")[0].disabled = true;
+      houseElement.className = "house";
     }
-    if (this.object.active) {
-      houseElement.className = "house"
-    } else {
-      houseElement.className = "house inactive"
+    if (!this.object.active) {
+      houseElement.className = "house grayscale";
     }
   }
 
   HousePresenter.prototype.html = function() {
     var wrapper = document.createElement('div');
-    wrapper.innerHTML = "<div class='house" + (this.object.active ? "" : " inactive") + "' id='" + this.object.id + "'>" +
+    var klass;
+    if (!this.object.active) {
+      klass = "house grayscale";
+    } else if (this.object.willingToBuy) {
+      klass = "house lights";
+    } else {
+      klass = "house";
+    }
+    wrapper.innerHTML = "<div class='" + klass + "' id='" + this.object.id + "'>" +
                         "  <h3>A House</h3>" +
                         "  <table>" +
                         "    <tr>" +

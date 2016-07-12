@@ -62,6 +62,20 @@ progress {
   flex-wrap: wrap;
 }
 
+.house {
+  background-image: url("images/house.png");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.house.lights {
+  background-image: url("images/house-lights.png");
+}
+
+.house.grayscale {
+  background-image: url("images/house-grayscale.png");
+}
+
 .selectors {
   display: flex;
   flex-wrap: wrap;
