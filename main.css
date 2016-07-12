@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Press+Start+2P);
+
 .main-container {
   display: flex;
   width: 1200px;
@@ -60,9 +62,55 @@ progress {
   flex-wrap: wrap;
 }
 
+.house {
+  width: 132px;
+  height: 150px;
+  background-image: url("images/house.png");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.house.lights {
+  background-image: url("images/house-lights.png");
+  cursor: pointer;
+}
+
+.house.grayscale {
+  background-image: url("images/house-grayscale.png");
+}
+
+.selectors {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.selectors > button {
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 8px;
+  width: 50%;
+  padding: 10px;
+  border: none;
+  background-color: #4CAF50;
+}
+
+.selectors > button:focus {
+  outline: none;
+}
+
+.selectors > button:hover {
+  cursor: pointer;
+}
+
+.selectors > button.active {
+  background-color: #008CBA;
+}
 
 /* Normalizers: */
 
 body {
   margin: 0;
+}
+
+table {
+  font-size: inherit;
 }

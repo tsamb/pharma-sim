@@ -94,7 +94,7 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
 
   Controller.prototype.addHouse = function(args) {
     var houseId = this.neighborhood.addHouse(args);
-    document.querySelector("#" + houseId + " button").addEventListener('click', function() {
+    document.getElementById(houseId).addEventListener('click', function() {
       this.sellToHouse(houseId);
     }.bind(this));
   }
@@ -124,14 +124,19 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
   Controller.prototype.addPurchasableSwitches = function() {
     this.addPurchasableSwitch("marketplace-switch", "marketplace");
     this.addPurchasableSwitch("property-switch", "property-upgrades");
-    // this.addPurchasableSwitch("map-switch","");
+    this.addPurchasableSwitch("map-switch", "map-options");
     this.addPurchasableSwitch("marketing-switch", "marketing-methods");
-    // this.addPurchasableSwitch("lobbying-switch", "");
-    // this.addPurchasableSwitch("labor-switch", "");
+    this.addPurchasableSwitch("lobbying-switch", "lobbying-options");
+    this.addPurchasableSwitch("labor-switch", "labor-options");
   }
 
   Controller.prototype.addPurchasableSwitch = function(switchId, containerId) {
-    document.getElementById(switchId).addEventListener("click", function() { Manip.removeClassFrom(document.querySelectorAll(".purchasable"), "active"); Manip.addClassTo(document.getElementById(containerId), "active") });
+    document.getElementById(switchId).addEventListener("click", function() {
+      Manip.removeClassFrom(document.querySelectorAll(".purchasable"), "active");
+      Manip.addClassTo(document.getElementById(containerId), "active")
+      Manip.removeClassFrom(document.querySelectorAll(".selectors button"), "active");
+      Manip.addClassTo(document.getElementById(switchId), "active")
+    });
   }
 
   return Controller;
