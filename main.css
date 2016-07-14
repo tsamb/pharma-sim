@@ -6,6 +6,94 @@
   height: 600px;
 }
 
+.main-panel {
+  background-color: #aaeeee;
+  flex: 1;
+}
+
+/***********/
+/* Top Bar */
+/***********/
+
+.top-bar {
+  background-color: #eeaaee;
+  height: 60px;
+}
+
+.meter-container {
+  display: inline-block;
+  width: 33%;
+  text-align: center;
+}
+
+progress {
+  margin: 0 auto;
+  width: 80%;
+}
+
+#messages {
+  height: 60px;
+  overflow: hidden;
+}
+
+/****************/
+/* Neighborhood */
+/****************/
+
+#neighborhood-view {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/**********/
+/* Houses */
+/**********/
+
+.house {
+  width: 144px;
+  height: 144px;
+  background-image: url("images/house-grass-path.png");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.house.lights {
+  background-image: url("images/house-grass-path-lights.png");
+  cursor: pointer;
+}
+
+.house.grayscale {
+  background-image: url("images/fog-house.gif");
+}
+
+h4.budget {
+  text-align: right;
+  margin-right: 25px;
+  color: #FFFFDA;
+  text-shadow: 2px 2px #7F7F6D;
+  font-family: 'Press Start 2P', sans-serif;
+}
+
+.text-spin {
+  display: inline-block;
+  -webkit-animation: text-spin-anim 2s infinite steps(12);
+  animation: text-spin-anim 2s infinite steps(12);
+}
+
+@-webkit-keyframes text-spin-anim {
+  from {-webkit-transform: rotateY(0deg);}
+  to {-webkit-transform: rotateY(360deg);}
+}
+
+@keyframes text-spin-anim {
+  from {transform: rotateY(0deg);}
+  to {transform: rotateY(360deg);}
+}
+
+/**************/
+/* Side panel */
+/**************/
+
 .side-panel {
   background-color: #eeeeaa;
   width: 200px;
@@ -29,54 +117,6 @@
 
 .purchasable.active {
   display: block;
-}
-
-.main-panel {
-  background-color: #aaeeee;
-  flex: 1;
-}
-
-.top-bar {
-  background-color: #eeaaee;
-  height: 60px;
-}
-
-.meter-container {
-  display: inline-block;
-  width: 33%;
-  text-align: center;
-}
-
-progress {
-  margin: 0 auto;
-  width: 80%;
-}
-
-#messages {
-  height: 60px;
-  overflow: hidden;
-}
-
-#neighborhood-view {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.house {
-  width: 144px;
-  height: 144px;
-  background-image: url("images/house-grass-path.png");
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.house.lights {
-  background-image: url("images/house-grass-path-lights.png");
-  cursor: pointer;
-}
-
-.house.grayscale {
-  background-image: url("images/fog-house.gif");
 }
 
 .selectors {
@@ -105,7 +145,9 @@ progress {
   background-color: #008CBA;
 }
 
+/****************/
 /* Normalizers: */
+/****************/
 
 body {
   margin: 0;

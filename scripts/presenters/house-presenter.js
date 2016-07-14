@@ -11,33 +11,36 @@ define(function() {
 
   HousePresenter.prototype.refresh = function() {
     var houseElement = document.getElementById(this.object.id);
-    // houseElement.getElementsByClassName("budget")[0].innerText = "$" + this.object.currentBudget();
+    var budgetElement = houseElement.getElementsByClassName("budget")[0]
     // houseElement.getElementsByClassName("frequency")[0].innerText = this.object.currentFrequency();
-    // houseElement.getElementsByClassName("ready")[0].innerText = this.object.readyText();
-    if (this.object.willingToBuy && this.object.active) {
-      // houseElement.getElementsByTagName("button")[0].disabled = false;
-      houseElement.className = "house lights";
-    } else {
-      // houseElement.getElementsByTagName("button")[0].disabled = true;
-      houseElement.className = "house";
-    }
     if (!this.object.active) {
       houseElement.className = "house grayscale";
+      budgetElement.innerHTML = "";
+    } else if (this.object.willingToBuy) {
+      houseElement.className = "house lights";
+      if (budgetElement.innerHTML.length < 1) {
+        budgetElement.innerHTML = "<div class='text-spin'>$</div>" + this.object.currentBudget();
+      }
+    } else {
+      houseElement.className = "house";
+      budgetElement.innerHTML = "";
     }
+    
   }
 
   HousePresenter.prototype.html = function() {
     var wrapper = document.createElement('div');
-    var klass;
+    var klass, budget;
     if (!this.object.active) {
       klass = "house grayscale";
     } else if (this.object.willingToBuy) {
       klass = "house lights";
+      budget = "<div class='text-spin'>$</div>" + this.object.currentBudget();
     } else {
       klass = "house";
     }
     wrapper.innerHTML = "<div class='" + klass + "' id='" + this.object.id + "'>" +
-                        // "  <h3>A House</h3>" +
+                        "  <h4 class='budget'>" + (budget ? budget : "") + "</h4>" +
                         // "  <table>" +
                         // "    <tr>" +
                         // "      <td>Budget:</td>" +
