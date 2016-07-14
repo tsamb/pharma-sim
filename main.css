@@ -63,20 +63,20 @@ progress {
 }
 
 .house {
-  width: 132px;
-  height: 150px;
-  background-image: url("images/house.png");
+  width: 144px;
+  height: 144px;
+  background-image: url("images/house-grass-path.png");
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .house.lights {
-  background-image: url("images/house-lights.png");
+  background-image: url("images/house-grass-path-lights.png");
   cursor: pointer;
 }
 
 .house.grayscale {
-  background-image: url("images/house-grayscale.png");
+  background-image: url("images/fog-house.gif");
 }
 
 .selectors {
