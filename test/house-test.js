@@ -139,4 +139,32 @@ describe('House', function() {
       house.marketingManager.level = function() {};
     });
   });
+
+  describe('#updateHype', function() {
+    it('activates the house if hype level is sufficient', function() {
+      var house = new House({budget: 80, frequency: 5, active: false, hypeToActivate: 2});
+      house.active.should.eql(false);
+      house.marketingManager.level = function() { return 2 };
+      house.updateHype();
+      house.active.should.eql(true);
+    });
+
+    it('does not activate the house if hype level is insufficient', function() {
+      var house = new House({budget: 80, frequency: 5, active: false, hypeToActivate: 4});
+      house.active.should.eql(false);
+      house.marketingManager.level = function() { return 3 };
+      house.updateHype();
+      house.active.should.eql(false);
+    });
+
+    it('does not deactivate the house if hype level drops below sufficiency', function() {
+      var house = new House({budget: 80, frequency: 5, active: false, hypeToActivate: 2});
+      house.active.should.eql(false);
+      house.marketingManager.level = function() { return 2 };
+      house.updateHype();
+      house.active.should.eql(true);
+      house.marketingManager.level = function() { return 0 };
+      house.active.should.eql(true);
+    });
+  });
 });
