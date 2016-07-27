@@ -26,4 +26,11 @@ describe('Days', function() {
     });
   });
 
+  describe('#increment', function(){
+    it('should increase the count by one', function(){
+      var days = new Days;
+      days.increment();
+      days.count.should.eql(2);
+    });
+  });
 });
