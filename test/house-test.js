@@ -22,7 +22,6 @@ describe('House', function() {
   describe('#instantiation', function(){
     it('should create new instances of House', function(){
       var house = new House({budget: 80, frequency: 5, active: true, hypeToActivate: 0});
-      house.presenter = {refresh: function() {}};
       house.should.have.property('budget', 80);
       house.should.have.property('frequency', 5);
       house.should.have.property('active', true);
