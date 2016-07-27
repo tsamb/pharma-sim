@@ -162,8 +162,18 @@ describe('House', function() {
       house.marketingManager.level = function() { return 2 };
       house.updateHype();
       house.active.should.eql(true);
-      house.marketingManager.level = function() { return 0 };
+      house.marketingManager.level = function() { return 1 };
       house.active.should.eql(true);
+    });
+  });
+
+  describe('#updateReadiness', function() {
+    it('flags house as willing-to-buy if it hits exactly 0 days until ready', function() {
+      var house = new House({budget: 80, frequency: 5, active: false, hypeToActivate: 2});
+      house.marketingManager.level = function() { return 1 };
+      house.willingToBuy.should.eql(false);
+      house.updateReadiness(10);
+      house.willingToBuy.should.eql(true);
     });
   });
 });
