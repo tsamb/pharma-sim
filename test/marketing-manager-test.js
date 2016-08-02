@@ -113,4 +113,34 @@ describe('MarketingManager', function() {
       mm.nextLevelReachedAt().should.eql(125000);
     });
   });
+
+  describe('#hypeGainedThisLevel', function() {
+    it('calculates how much xp has been gained this level', function() {
+      mm.hype = 1600;
+      mm.hypeGainedThisLevel().should.eql(600);
+    });
+  });
+
+  describe('#hypeRemainingThisLevel', function() {
+    it('calculates how much xp required to gain the next level', function() {
+      mm.hype = 1600;
+      mm.hypeRemainingThisLevel().should.eql(6400);
+    });
+  });
+
+  describe('#hypeBetweenCurrentLevels', function() {
+    it('calculates the xp spread between the current and next levels', function() {
+      mm.hype = 1600;
+      mm.hypeBetweenCurrentLevels().should.eql(7000);
+    });
+  });
+
+  describe('#percentageOfCurrentLevelComplete', function() {
+    it('expresses the progress towards the next level as a percentage', function() {
+      mm.hype = 4500;
+      mm.percentageOfCurrentLevelComplete().should.eql(50);
+      mm.hype = 124999;
+      mm.percentageOfCurrentLevelComplete().should.eql(99);
+    });
+  });
 });
