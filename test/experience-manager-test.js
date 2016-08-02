@@ -38,35 +38,35 @@ describe('ExperienceManager', function() {
     it('should be level 1 until 1000 xp', function() {
       em.experience = 500;
       em.level().should.eql(1);
-      em.experience = 1000;
+      em.experience = 999;
       em.level().should.eql(1);
     });
 
-    it('should be level 2 between 1001 and 8000 xp', function() {
-      em.experience = 1001;
+    it('should be level 2 between 1000 and 7999 xp', function() {
+      em.experience = 1000;
       em.level().should.eql(2);
+      em.experience = 7999;
+      em.level().should.eql(2);
+    });
+
+    it('should be level 3 between 8000 and 26999 xp', function() {
       em.experience = 8000;
-      em.level().should.eql(2);
+      em.level().should.eql(3);
+      em.experience = 26999;
+      em.level().should.eql(3);
     });
 
-    it('should be level 3 between 8001 and 27000 xp', function() {
-      em.experience = 8001;
-      em.level().should.eql(3);
+    it('should be level 4 between 27000 and 63999 xp', function() {
       em.experience = 27000;
-      em.level().should.eql(3);
+      em.level().should.eql(4);
+      em.experience = 63999;
+      em.level().should.eql(4);
     });
 
-    it('should be level 4 between 27001 and 64000 xp', function() {
-      em.experience = 27001;
-      em.level().should.eql(4);
+    it('should be level 5 between 64000 and 124999 xp', function() {
       em.experience = 64000;
-      em.level().should.eql(4);
-    });
-
-    it('should be level 5 between 64001 and 125000 xp', function() {
-      em.experience = 64001;
       em.level().should.eql(5);
-      em.experience = 125000;
+      em.experience = 124999;
       em.level().should.eql(5);
     });
   });
@@ -77,14 +77,14 @@ describe('ExperienceManager', function() {
     });
 
     it('should be 0 until 1000', function() {
-      em.experience = 1000;
+      em.experience = 999;
       em.currentLevelReachedAt().should.eql(0);
     });
 
     it('should be 1000 until 8000', function() {
-      em.experience = 1001;
+      em.experience = 1000;
       em.currentLevelReachedAt().should.eql(1000);
-      em.experience = 8000;
+      em.experience = 7999;
       em.currentLevelReachedAt().should.eql(1000);
     });
 
