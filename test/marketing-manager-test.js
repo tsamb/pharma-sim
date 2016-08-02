@@ -143,4 +143,34 @@ describe('MarketingManager', function() {
       mm.percentageOfCurrentLevelComplete().should.eql(99);
     });
   });
+
+  describe('#increaseHype', function() {
+    it('increases the hype by the given amount', function() {
+      mm.hype = 0;
+      mm.increaseHype(2500);
+      mm.hype.should.eql(2500);
+      mm.increaseHype(400);
+      mm.hype.should.eql(2900);
+    });
+  });
+
+  describe('#decreaseHype', function() {
+    it('decreases the hype by the given amount', function() {
+      mm.hype = 5000;
+      mm.decreaseHype(1000);
+      mm.hype.should.eql(4000);
+      mm.decreaseHype(600);
+      mm.hype.should.eql(3400);
+    });
+  });
+
+  describe('#organicHypeFade', function() {
+    it('decreases the hype by a quotient relative to the current hype', function() {
+      mm.hype = 10000;
+      mm.organicHypeFade();
+      mm.hype.should.eql(9900);
+      mm.organicHypeFade();
+      mm.hype.should.eql(9801);
+    });
+  });
 });
