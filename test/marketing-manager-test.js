@@ -87,4 +87,30 @@ describe('MarketingManager', function() {
       mm.currentLevelReachedAt().should.eql(64000);
     });
   });
+
+  describe('#nextLevelReachedAt', function() {
+    it('calculates the amount of total hype to reach the next level', function() {
+      mm.hype = 0;
+      mm.nextLevelReachedAt().should.eql(1000);
+    });
+
+    it('should be 1000 between 0 and 999', function() {
+      mm.hype = 500;
+      mm.nextLevelReachedAt().should.eql(1000);
+      mm.hype = 999;
+      mm.nextLevelReachedAt().should.eql(1000);
+    });
+
+    it('should be 8000 between 1000 and 7999', function() {
+      mm.hype = 1000;
+      mm.nextLevelReachedAt().should.eql(8000);
+      mm.hype = 7999;
+      mm.nextLevelReachedAt().should.eql(8000);
+    });
+
+    it('should work for all levels', function() {
+      mm.hype = 112000;
+      mm.nextLevelReachedAt().should.eql(125000);
+    });
+  });
 });
