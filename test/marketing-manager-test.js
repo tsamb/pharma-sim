@@ -19,6 +19,10 @@ describe('MarketingManager', function() {
     });
   });
 
+  after(function() {
+    mm.hype = 0;
+  });
+
   it('should start with 0 hype', function(){
     mm.should.have.property('hype', 0);
   });
