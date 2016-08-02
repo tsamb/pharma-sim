@@ -4,16 +4,16 @@ define(['models/resource-manager',
 'models/days',
 'models/neighborhood',
 'models/marketing-manager',
-'models/marketing-method',
+'models/advertisement',
 'helpers/manip'],
-function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManager, MarketingMethod, Manip) {
+function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManager, Advertisement, Manip) {
   var Controller = function() {
     this.days = new Days;
     this.resourceManager = new ResourceManager;
     this.neighborhood = new Neighborhood;
     this.marketingManager = MarketingManager;
     this.supplyOffers = [];
-    this.marketingMethods = [];
+    this.advertisements = [];
     this.coreLoop = window.setInterval(this.coreCycle.bind(this), 500);
     this.init();
   }
@@ -42,15 +42,15 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
     this.addSupplyOffer({amount: 500, price: 30000});
     this.addSupplyOffer({amount: 1000, price: 50000});
 
-    this.addMarketingMethod({name: "Paper Boy", price: 500, hype: 1500});
-    this.addMarketingMethod({name: "Flyer Drop", price: 2000, hype: 8000});
-    this.addMarketingMethod({name: "Flyer Handout", price: 4000, hype: 20000});
-    this.addMarketingMethod({name: "Referral Program", price: 10000, hype: 60000});
-    this.addMarketingMethod({name: "Social Media", price: 30000, hype: 210000});
-    this.addMarketingMethod({name: "Web Banner Ads", price: 50000, hype: 400000});
-    this.addMarketingMethod({name: "Billboard", price: 100000, hype: 1000000});
-    this.addMarketingMethod({name: "TV Spot", price: 500000, hype: 6000000});
-    this.addMarketingMethod({name: "Superbowl Ad", price: 3000000, hype: 45000000});
+    this.addAdvertisement({name: "Paper Boy", price: 500, hype: 1500});
+    this.addAdvertisement({name: "Flyer Drop", price: 2000, hype: 8000});
+    this.addAdvertisement({name: "Flyer Handout", price: 4000, hype: 20000});
+    this.addAdvertisement({name: "Referral Program", price: 10000, hype: 60000});
+    this.addAdvertisement({name: "Social Media", price: 30000, hype: 210000});
+    this.addAdvertisement({name: "Web Banner Ads", price: 50000, hype: 400000});
+    this.addAdvertisement({name: "Billboard", price: 100000, hype: 1000000});
+    this.addAdvertisement({name: "TV Spot", price: 500000, hype: 6000000});
+    this.addAdvertisement({name: "Superbowl Ad", price: 3000000, hype: 45000000});
 
     this.addPropertyUpgrade();
 
@@ -83,7 +83,7 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
   }
 
   Controller.prototype.purchaseMarketing = function(methodId) {
-    var method = this.marketingMethods.find(function(method) { return method.id === methodId });
+    var method = this.advertisements.find(function(method) { return method.id === methodId });
     if (method && this.resourceManager.cashIsAvailable(method.price)) {
       this.resourceManager.processPurchase(method.price);
       this.marketingManager.increaseHype(method.hype);
@@ -108,13 +108,13 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
     return this.supplyOffers;
   }
 
-  Controller.prototype.addMarketingMethod = function(args) {
-    var method = new MarketingMethod(args);
+  Controller.prototype.addAdvertisement = function(args) {
+    var method = new Advertisement(args);
     document.getElementById(method.id).addEventListener('click', function() {
       this.purchaseMarketing(method.id);
     }.bind(this));
-    this.marketingMethods.push(method);
-    return this.marketingMethods;
+    this.advertisements.push(method);
+    return this.advertisements;
   }
 
   Controller.prototype.addPropertyUpgrade = function() {
