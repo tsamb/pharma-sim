@@ -2,7 +2,7 @@ define(['models/experience-manager',
 'models/storage-manager',
 'presenters/resource-manager-presenter',
 'errors/errors'], function(ExperienceManager, StorageManager, ResourceManagerPresenter, errors) {
-  var BUY_XP_MULTIPLE = 50;
+  var PURCHASE_XP_REWARD_MULTIPLE = 50;
 
   function ResourceManager() {
     this.product = 0;
@@ -60,7 +60,7 @@ define(['models/experience-manager',
 
   ResourceManager.prototype.buyProduct = function(amount, price) {
     if (this.cashIsAvailable(price) && this.capacityIsAvailable(amount)) {
-      this.experienceManager.increase(amount * BUY_XP_MULTIPLE);
+      this.experienceManager.increase(amount * PURCHASE_XP_REWARD_MULTIPLE);
       this.product += amount;
       this.bankAccount -= price;
       this.presenter.refresh();
