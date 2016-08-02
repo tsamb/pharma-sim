@@ -11,8 +11,8 @@ define(['presenters/marketing-manager-presenter'], function(MarketingManagerPres
   // <<<<<<<< COMPUTED PROPERTIES >>>>>>>>
 
   MarketingManager.prototype.level = function() {
-    // current xp/level: 2 => 1000, 3 => 8000, 4 => 27000, 5 => 125000
-    return Math.floor(Math.pow(this.hype, 1 / LEVEL_EXPONENT) / LEVEL_MULTIPLE) + 1;
+    // current xp/level: 2 => 1000, 3 => 8000, 4 => 27000, 5 => 64000, 6 => 125000
+    return Math.floor(Math.pow(this.hype + 1, 1 / LEVEL_EXPONENT) / LEVEL_MULTIPLE) + 1;
   }
 
   MarketingManager.prototype.currentLevelReachedAt = function() {
