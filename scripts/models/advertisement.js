@@ -1,4 +1,4 @@
-define(['presenters/marketing-method-presenter'], function(AdvertisementPresenter) {
+define(['presenters/advertisement-presenter'], function(AdvertisementPresenter) {
   function Advertisement(args) {
     Advertisement.numInstances = (Advertisement.numInstances || 0) + 1;
     this.name = args.name;
