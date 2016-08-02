@@ -25,9 +25,9 @@ describe('Advertisement', function() {
 
   describe('#instantiation', function(){
     it('should create new instances of Advertisement', function(){
-      ad.should.have.property('name');
-      ad.should.have.property('hype');
-      ad.should.have.property('price');
+      ad.should.have.property('name', "Test Ad");
+      ad.should.have.property('hype', 500);
+      ad.should.have.property('price', 1000);
       ad.should.have.property('id');
     });
 
