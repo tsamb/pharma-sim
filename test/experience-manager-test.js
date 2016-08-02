@@ -150,7 +150,11 @@ describe('ExperienceManager', function() {
   });
 
   describe('#increase', function() {
-
+    it('increases the experience by the given amount', function() {
+      em.increase(2500);
+      em.experience.should.eql(2500);
+      em.increase(400);
+      em.experience.should.eql(2900);
+    });
   });
-
 });
