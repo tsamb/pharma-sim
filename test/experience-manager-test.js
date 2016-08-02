@@ -72,7 +72,26 @@ describe('ExperienceManager', function() {
   });
 
   describe('#currentLevelReachedAt', function() {
+    it('calculates the amount of experience the current level was reached at', function() {
+      em.currentLevelReachedAt().should.eql(0);
+    });
 
+    it('should be 0 until 1000', function() {
+      em.experience = 1000;
+      em.currentLevelReachedAt().should.eql(0);
+    });
+
+    it('should be 1000 until 8000', function() {
+      em.experience = 1001;
+      em.currentLevelReachedAt().should.eql(1000);
+      em.experience = 8000;
+      em.currentLevelReachedAt().should.eql(1000);
+    });
+
+    it('should work for all levels', function() {
+      em.experience = 112000;
+      em.currentLevelReachedAt().should.eql(64000);
+    });
   });
 
   describe('#nextLevelReachedAt', function() {
