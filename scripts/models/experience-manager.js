@@ -10,7 +10,7 @@ define(['presenters/experience-manager-presenter'], function(ExperienceManagerPr
   // <<<<<<<< COMPUTED PROPERTIES >>>>>>>>
 
   ExperienceManager.prototype.level = function() {
-    // current xp/level: 2 => 1000, 3 => 8000, 4 => 27000, 5 => 125000
+    // current xp/level: 2 => 1000, 3 => 8000, 4 => 27000, 5 => 64000, 6 => 125000
     return Math.floor(Math.pow(this.experience, 1 / LEVEL_EXPONENT) / LEVEL_MULTIPLE) + 1;
   }
 
