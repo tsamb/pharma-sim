@@ -120,19 +120,33 @@ describe('ExperienceManager', function() {
   });
 
   describe('#experienceGainedThisLevel', function() {
-
+    it('calculates how much xp has been gained this level', function() {
+      em.experience = 1600;
+      em.experienceGainedThisLevel().should.eql(600);
+    });
   });
 
   describe('#experienceRemainingThisLevel', function() {
-
+    it('calculates how much xp required to gain the next level', function() {
+      em.experience = 1600;
+      em.experienceRemainingThisLevel().should.eql(6400);
+    });
   });
 
   describe('#experienceBetweenCurrentLevels', function() {
-
+    it('calculates the xp spread between the current and next levels', function() {
+      em.experience = 1600;
+      em.experienceBetweenCurrentLevels().should.eql(7000);
+    });
   });
 
   describe('#percentageOfCurrentLevelComplete', function() {
-
+    it('expresses the progress towards the next level as a percentage', function() {
+      em.experience = 4500;
+      em.percentageOfCurrentLevelComplete().should.eql(50);
+      em.experience = 124999;
+      em.percentageOfCurrentLevelComplete().should.eql(99);
+    });
   });
 
   describe('#increase', function() {
