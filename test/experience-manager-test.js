@@ -11,7 +11,7 @@ requirejs.config({
 });
 
 describe('ExperienceManager', function() {
-  var ExperienceManager;
+  var ExperienceManager, em;
   before(function(done) {
     requirejs(['models/experience-manager'], function(ExperienceManagerConstructor) {
       ExperienceManager = ExperienceManagerConstructor;
@@ -19,20 +19,18 @@ describe('ExperienceManager', function() {
     });
   });
 
+  beforeEach(function(done) {
+    em = new ExperienceManager;
+    done();
+  })
+
   describe('#instantiation', function(){
     it('should create new instances of ExperienceManager with experience of 0', function(){
-      var em = new ExperienceManager;
       em.should.have.property('experience', 0);
     });
   });
 
   describe('#level', function() {
-    var em;
-    beforeEach(function(done) {
-      em = new ExperienceManager;
-      done();
-    })
-
     it('should start at level 1', function() {
       em.level().should.eql(1);
     });
