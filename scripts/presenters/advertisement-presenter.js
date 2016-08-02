@@ -1,6 +1,6 @@
 define(function() {
   function AdvertisementPresenter(object) {
-    this.parentContainer = document.getElementById("marketing-methods");
+    this.parentContainer = document.getElementById("advertising");
     this.object = object;
     this.init();
   }

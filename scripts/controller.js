@@ -125,7 +125,7 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
     this.addPurchasableSwitch("marketplace-switch", "marketplace");
     this.addPurchasableSwitch("property-switch", "property-upgrades");
     this.addPurchasableSwitch("map-switch", "map-options");
-    this.addPurchasableSwitch("marketing-switch", "marketing-methods");
+    this.addPurchasableSwitch("advertising-switch", "advertising");
     this.addPurchasableSwitch("lobbying-switch", "lobbying-options");
     this.addPurchasableSwitch("labor-switch", "labor-options");
   }
