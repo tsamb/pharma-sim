@@ -12,7 +12,7 @@ requirejs.config({
 });
 
 describe('Neighborhood', function() {
-  var Neighborhood, hood, mockHouses;
+  var Neighborhood, emptyHood, fullHood, mockHouses;
   before(function(done) {
     requirejs(['models/neighborhood', 'models/house'], function(NeighborhoodConstructor, HouseConstructor) {
       Neighborhood = NeighborhoodConstructor;
@@ -22,24 +22,34 @@ describe('Neighborhood', function() {
   });
 
   beforeEach(function() {
-    hood = new Neighborhood;
-    houses = [];
+    emtpyHood = new Neighborhood;
+    fullHood = new Neighborhood;
     for (var i = 0; i < 5; i++) {
-      houses.push(new House({budget: 80, frequency: 5, active: true, hypeToActivate: 0}))
+      fullHood.houses.push(new House({budget: 80, frequency: 5, active: true, hypeToActivate: 0}));
     }
   })
 
   describe('#instantiation', function(){
     it('should create new instances of Neighborhood', function(){
-      hood.should.have.property('houses', []);
+      emtpyHood.should.have.property('houses', []);
     });
   });
 
   describe('#addHouse', function(){
     it('adds House objects to the neighborhood', function(){
-      hood.addHouse({budget: 100, frequency: 10, active: true, hypeToActivate: 0}).should.match(/house-.*/);
-      hood.houses.should.have.length(1);
-      hood.houses[0].should.be.an.instanceOf(House);
+      emtpyHood.addHouse({budget: 100, frequency: 10, active: true, hypeToActivate: 0}).should.match(/house-.*/);
+      emtpyHood.houses.should.have.length(1);
+      emtpyHood.houses[0].should.be.an.instanceOf(House);
+    });
+  });
+
+  describe('#updateHouseReadiness', function() {
+    it('calls #updateReadiness on every house', function() {
+      var spies = fullHood.houses.map(function(house) { return sinon.spy(house, "updateReadiness") });
+      fullHood.updateHouseReadiness();
+      spies.forEach(function(spy) {
+        spy.called.should.eql(true);
+      });
     });
   });
 });
