@@ -8,4 +8,4 @@ define(['presenters/supply-offer-presenter'], function(SupplyOfferPresenter) {
   }
 
   return SupplyOffer;
-})
+});
