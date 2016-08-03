@@ -11,7 +11,7 @@ requirejs.config({
 });
 
 describe('Days', function() {
-  var Days;
+  var Days, days;
   before(function(done) {
     requirejs(['models/days'], function(DaysConstructor) {
       Days = DaysConstructor;
@@ -19,16 +19,18 @@ describe('Days', function() {
     });
   });
 
+  beforeEach(function() {
+    days = new Days;
+  });
+
   describe('#instantiation', function(){
     it('should create new instances of Days with a count starting at 1', function(){
-      var days = new Days;
       days.should.have.property('count', 1);
     });
   });
 
   describe('#increment', function(){
     it('should increase the count by one', function(){
-      var days = new Days;
       days.increment();
       days.count.should.eql(2);
     });
