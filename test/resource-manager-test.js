@@ -90,6 +90,12 @@ describe('ResourceManager', function() {
       rm.processPurchase(600);
       rm.bankAccount.should.eql(400);
     });
+
+    it('does not allow transactions for more than the bank balance contains', function() {
+      rm.bankAccount = 1000;
+      rm.processPurchase(2000);
+      rm.bankAccount.should.eql(1000);
+    });
   });
 
   describe('#sellProduct', function() {
