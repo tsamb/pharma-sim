@@ -47,16 +47,17 @@ define(['presenters/marketing-manager-presenter'], function(MarketingManagerPres
   }
 
   MarketingManager.prototype.decreaseHype = function(amount) {
-    this.hype -= Math.ceil(amount);
-    this.presenter.refresh();
+    var amountToDecrease = Math.ceil(amount);
+    if (amountToDecrease > this.hype) {
+      this.hype = 0;
+    } else {
+      this.hype -= Math.ceil(amount);
+      this.presenter.refresh();
+    }
   }
 
   MarketingManager.prototype.organicHypeFade = function() {
-    if (this.hype > 0 + (FADE_DECREMENT_MULTIPLE * this.hype)) {
-      this.decreaseHype(FADE_DECREMENT_MULTIPLE * this.hype);
-    } else {
-      this.hype = 0;
-    }
+    this.decreaseHype(FADE_DECREMENT_MULTIPLE * this.hype);
   }
 
   return new MarketingManager;

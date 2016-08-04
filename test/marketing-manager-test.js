@@ -166,6 +166,14 @@ describe('MarketingManager', function() {
       mm.decreaseHype(600);
       mm.hype.should.eql(3400);
     });
+
+    it('cannot decrease the hype below 0', function() {
+      mm.hype = 100;
+      mm.decreaseHype(500);
+      mm.hype.should.eql(0);
+      mm.decreaseHype(200);
+      mm.hype.should.eql(0);
+    });
   });
 
   describe('#organicHypeFade', function() {
