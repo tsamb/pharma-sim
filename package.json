@@ -6,7 +6,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "coverage": "./node_modules/istanbul/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha"
   },
   "repository": {
     "type": "git",
@@ -18,9 +19,12 @@
   },
   "homepage": "https://github.com/tsamb/pharma-sim",
   "dependencies": {
-    "requirejs": "^2.2.0",
+    "requirejs": "^2.2.0"
+  },
+  "devDependencies": {
     "mocha": "^2.3.4",
     "should": "^8.1.1",
-    "sinon": "^1.17.5"
+    "sinon": "^1.17.5",
+    "istanbul": "^0.4.4"
   }
 }
