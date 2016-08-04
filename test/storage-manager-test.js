@@ -27,6 +27,11 @@ describe('StorageManager', function() {
     it('should create new instances of Advertisement', function(){
       sm.should.have.property('capacity');
     });
+
+    it('sets defaults', function() {
+      var defaultSm = new StorageManager({});
+      defaultSm.should.have.property('capacity', 0);
+    });
   });
 
   describe('#increaseCapacity', function() {
