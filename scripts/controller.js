@@ -5,8 +5,8 @@ define(['models/resource-manager',
 'models/neighborhood',
 'models/marketing-manager',
 'models/advertisement',
-'helpers/manip'],
-function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManager, Advertisement, Manip) {
+'helpers/event-helper'],
+function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManager, Advertisement, EventHelper) {
   var Controller = function() {
     this.days = new Days;
     this.resourceManager = new ResourceManager;
@@ -14,7 +14,7 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
     this.marketingManager = MarketingManager;
     this.supplyOffers = [];
     this.advertisements = [];
-    this.coreLoop = window.setInterval(this.coreCycle.bind(this), 500);
+    this.coreLoop = setInterval(this.coreCycle.bind(this), 500);
     this.init();
   }
 
@@ -94,49 +94,34 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
 
   Controller.prototype.addHouse = function(args) {
     var houseId = this.neighborhood.addHouse(args);
-    document.getElementById(houseId).addEventListener('click', function() {
-      this.sellToHouse(houseId);
-    }.bind(this));
+    EventHelper.addClickListener(houseId, function() { this.sellToHouse(houseId) }.bind(this));
   }
 
   Controller.prototype.addSupplyOffer = function(args) {
     var offer = new SupplyOffer(args);
-    document.getElementById(offer.id).addEventListener('click', function() {
-      this.buyProduct(offer.id);
-    }.bind(this));
+    EventHelper.addClickListener(offer.id, function() { this.buyProduct(offer.id) }.bind(this));
     this.supplyOffers.push(offer);
     return this.supplyOffers;
   }
 
   Controller.prototype.addAdvertisement = function(args) {
     var method = new Advertisement(args);
-    document.getElementById(method.id).addEventListener('click', function() {
-      this.purchaseMarketing(method.id);
-    }.bind(this));
+    EventHelper.addClickListener(method.id, function() { this.purchaseMarketing(method.id) }.bind(this));
     this.advertisements.push(method);
     return this.advertisements;
   }
 
   Controller.prototype.addPropertyUpgrade = function() {
-    document.getElementById("property-upgrades").getElementsByTagName("button")[0].addEventListener("click", function() { this.resourceManager.increaseCapacity(); }.bind(this));
+    EventHelper.addClickListener('property-upgrade-button', function() { this.resourceManager.increaseCapacity() }.bind(this));
   }
 
   Controller.prototype.addPurchasableSwitches = function() {
-    this.addPurchasableSwitch("marketplace-switch", "marketplace");
-    this.addPurchasableSwitch("property-switch", "property-upgrades");
-    this.addPurchasableSwitch("map-switch", "map-options");
-    this.addPurchasableSwitch("advertising-switch", "advertising");
-    this.addPurchasableSwitch("lobbying-switch", "lobbying-options");
-    this.addPurchasableSwitch("labor-switch", "labor-options");
-  }
-
-  Controller.prototype.addPurchasableSwitch = function(switchId, containerId) {
-    document.getElementById(switchId).addEventListener("click", function() {
-      Manip.removeClassFrom(document.querySelectorAll(".purchasable"), "active");
-      Manip.addClassTo(document.getElementById(containerId), "active")
-      Manip.removeClassFrom(document.querySelectorAll(".selectors button"), "active");
-      Manip.addClassTo(document.getElementById(switchId), "active")
-    });
+    EventHelper.addPurchasableSwitch("marketplace-switch", "marketplace");
+    EventHelper.addPurchasableSwitch("property-switch", "property-upgrades");
+    EventHelper.addPurchasableSwitch("map-switch", "map-options");
+    EventHelper.addPurchasableSwitch("advertising-switch", "advertising");
+    EventHelper.addPurchasableSwitch("lobbying-switch", "lobbying-options");
+    EventHelper.addPurchasableSwitch("labor-switch", "labor-options");
   }
 
   return Controller;
