@@ -13,7 +13,7 @@ requirejs.config({
 });
 
 describe('Controller', function() {
-  var Controller;
+  var Controller, cont;
   before(function(done) {
     requirejs(['controller'], function(ControllerConstructor) {
       Controller = ControllerConstructor;
@@ -22,12 +22,11 @@ describe('Controller', function() {
   });
 
   beforeEach(function() {
-    
+    cont = new Controller;
   });
 
   describe('#instantiation', function(){
     it('creates new instances of Controller', function(){
-      var cont = new Controller;
       cont.should.have.property('days');
       cont.should.have.property('resourceManager');
       cont.should.have.property('neighborhood');
@@ -39,8 +38,17 @@ describe('Controller', function() {
   });
 
   describe('#init', function() {
-    it('', function() {
+    it('sets up neighborhoods, supply offers, ads, property upgrades', function() {
+      cont.neighborhood.houses.should.be.empty();
+      cont.supplyOffers.should.be.empty();
+      cont.advertisements.should.be.empty();
+      // cont.resourceManager.storageManager.propertyUpgrades.should.be.empty; // not yet implemented as options
 
+      cont.init();
+
+      cont.neighborhood.houses.should.not.be.empty();
+      cont.supplyOffers.should.not.be.empty();
+      cont.advertisements.should.not.be.empty();
     });
   });
 

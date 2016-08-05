@@ -15,7 +15,6 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
     this.supplyOffers = [];
     this.advertisements = [];
     this.coreLoop = setInterval(this.coreCycle.bind(this), 500);
-    this.init();
   }
 
   // <<<<<<<< INITIAL SET UP >>>>>>>>
