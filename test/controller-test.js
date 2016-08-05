@@ -37,4 +37,64 @@ describe('Controller', function() {
       cont.should.have.property('coreLoop');
     });
   });
+
+  describe('#init', function() {
+    it('', function() {
+
+    });
+  });
+
+  describe('#coreCycle', function() {
+    it('', function() {
+
+    });
+  });
+
+  describe('#sellToHouse', function() {
+    it('', function() {
+
+    });
+  });
+
+  describe('#buyProduct', function() {
+    it('', function() {
+
+    });
+  });
+
+  describe('#purchaseMarketing', function() {
+    it('', function() {
+
+    });
+  });
+
+  describe('#addHouse', function() {
+    it('', function() {
+
+    });
+  });
+
+  describe('#addSupplyOffer', function() {
+    it('', function() {
+
+    });
+  });
+
+  describe('#addAdvertisement', function() {
+    it('', function() {
+
+    });
+  });
+
+  describe('#addPropertyUpgrade', function() {
+    it('', function() {
+
+    });
+  });
+
+  describe('#addPurchasableSwitches', function() {
+    it('', function() {
+
+    });
+  });
 });
