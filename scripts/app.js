@@ -17,5 +17,7 @@ requirejs.onError = function (err) {
 };
 
 requirejs(["controller"], function(Controller) {
-  new Controller().init();
+  var cont = new Controller();
+  cont.init();
+  cont.start();
 });

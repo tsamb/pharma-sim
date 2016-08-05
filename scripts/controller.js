@@ -14,7 +14,6 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
     this.marketingManager = MarketingManager;
     this.supplyOffers = [];
     this.advertisements = [];
-    this.coreLoop = setInterval(this.coreCycle.bind(this), 500);
   }
 
   // <<<<<<<< INITIAL SET UP >>>>>>>>
@@ -54,6 +53,10 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
     this.addPropertyUpgrade();
 
     this.addPurchasableSwitches();
+  }
+
+  Controller.prototype.start = function() {
+    this.coreLoop = setInterval(this.coreCycle.bind(this), 500);
   }
 
   // <<<<<<<< CORE LOOP >>>>>>>>

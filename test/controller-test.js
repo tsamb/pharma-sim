@@ -33,7 +33,6 @@ describe('Controller', function() {
       cont.should.have.property('marketingManager');
       cont.should.have.property('supplyOffers');
       cont.should.have.property('advertisements');
-      cont.should.have.property('coreLoop');
     });
   });
 
@@ -53,8 +52,37 @@ describe('Controller', function() {
   });
 
   describe('#coreCycle', function() {
-    it('', function() {
+    it('increments the days', function() {
+      cont.days.count.should.eql(1);
 
+      cont.coreCycle();
+
+      cont.days.count.should.eql(2);
+    });
+
+    it('updates readiness of all houses', function() {
+      var readinessMethodSpy = sinon.spy(cont.neighborhood, "updateHouseReadiness");
+
+      cont.coreCycle();
+
+      readinessMethodSpy.called.should.eql(true, 'expected Neighborhood#updateHouseReadiness to be called')
+    });
+
+    it('fades the hype', function() {
+      var hypeFadeMethodSpy = sinon.spy(cont.marketingManager, "organicHypeFade");
+
+      cont.coreCycle();
+
+      hypeFadeMethodSpy.called.should.eql(true, 'expected MarketingManager#organicHypeFade to be called')
+    });
+
+    it('updates houses with the current hype', function() {
+      // move this updating to pub/sub? i.e. each house subscribes to a "hype change" event?
+      var updateHypeMethodSpy = sinon.spy(cont.neighborhood, "updateHype");
+
+      cont.coreCycle();
+
+      updateHypeMethodSpy.called.should.eql(true, 'expected Neighborhood#updateHype to be called')
     });
   });
 
