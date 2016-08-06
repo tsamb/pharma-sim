@@ -15,9 +15,10 @@ requirejs.config({
 describe('Controller', function() {
   var Controller, House, cont, sandbox;
   before(function(done) {
-    requirejs(['controller', 'models/house'], function(ControllerConstructor, HouseConstructor) {
+    requirejs(['controller', 'models/house', 'models/supply-offer'], function(ControllerConstructor, HouseConstructor, SupplyOfferConstructor) {
       Controller = ControllerConstructor;
       House = HouseConstructor;
+      SupplyOffer = SupplyOfferConstructor;
       done();
     });
   });
@@ -153,8 +154,28 @@ describe('Controller', function() {
   });
 
   describe('#buyProduct', function() {
-    it('', function() {
+    context('when the offer exists', function() {
+      it('delegates purchasing to the resource manager', function() {
+        var offer = new SupplyOffer({amount: 10, price: 1000});
+        var buyMethodSpy = sandbox.spy(cont.resourceManager, "buyProduct");
+        cont.supplyOffers.push(offer);
+        cont.resourceManager.bankAccount = 2000;
+        cont.resourceManager.product = 0;
 
+        cont.buyProduct(offer.id);
+
+        buyMethodSpy.calledWith(10, 1000).should.eql(true, 'expected ResourceManager#buyProduct to be called with args: 10, 1000');
+      });
+    });
+
+    context('when the offer does not exists', function() {
+      it('does nothing', function() {
+        var buyMethodSpy = sandbox.spy(cont.resourceManager, "buyProduct");;
+
+        cont.buyProduct("notanoffer");
+
+        buyMethodSpy.called.should.eql(false, 'expected ResourceManager#buyProduct not to be called');
+      });
     });
   });
 
