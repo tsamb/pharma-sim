@@ -13,7 +13,7 @@ requirejs.config({
 });
 
 describe('Controller', function() {
-  var Controller, House, cont;
+  var Controller, House, cont, sandbox;
   before(function(done) {
     requirejs(['controller', 'models/house'], function(ControllerConstructor, HouseConstructor) {
       Controller = ControllerConstructor;
@@ -24,6 +24,11 @@ describe('Controller', function() {
 
   beforeEach(function() {
     cont = new Controller;
+    sandbox = sinon.sandbox.create();
+  });
+
+  afterEach(function() {
+    sandbox.restore();
   });
 
   describe('#instantiation', function(){
@@ -62,31 +67,28 @@ describe('Controller', function() {
     });
 
     it('updates readiness of all houses', function() {
-      var readinessMethodSpy = sinon.spy(cont.neighborhood, "updateHouseReadiness");
+      var readinessMethodSpy = sandbox.spy(cont.neighborhood, "updateHouseReadiness");
 
       cont.coreCycle();
 
       readinessMethodSpy.called.should.eql(true, 'expected Neighborhood#updateHouseReadiness to be called')
-      cont.neighborhood.updateHouseReadiness.restore();
     });
 
     it('fades the hype', function() {
-      var hypeFadeMethodSpy = sinon.spy(cont.marketingManager, "organicHypeFade");
+      var hypeFadeMethodSpy = sandbox.spy(cont.marketingManager, "organicHypeFade");
 
       cont.coreCycle();
 
       hypeFadeMethodSpy.called.should.eql(true, 'expected MarketingManager#organicHypeFade to be called')
-      cont.marketingManager.organicHypeFade.restore();
     });
 
     it('updates houses with the current hype', function() {
       // move this updating to pub/sub? i.e. each house subscribes to a "hype change" event?
-      var updateHypeMethodSpy = sinon.spy(cont.neighborhood, "updateHype");
+      var updateHypeMethodSpy = sandbox.spy(cont.neighborhood, "updateHype");
 
       cont.coreCycle();
 
       updateHypeMethodSpy.called.should.eql(true, 'expected Neighborhood#updateHype to be called')
-      cont.neighborhood.updateHype.restore();
     });
   });
 
@@ -94,8 +96,8 @@ describe('Controller', function() {
     context('when the house exists, is ready and product is available', function() {
       it('processes the transaction for the house and the resource manager', function() {
         var house = new House({budget: 120, frequency: 20, active: true, hypeToActivate: 0});
-        var sellMethodSpy = sinon.spy(cont.resourceManager, "sellProduct");
-        var houseSellSpy = sinon.spy(house, "sell");
+        var sellMethodSpy = sandbox.spy(cont.resourceManager, "sellProduct");
+        var houseSellSpy = sandbox.spy(house, "sell");
         house.willingToBuy = true;
         cont.neighborhood.houses.push(house);
         cont.resourceManager.product = 10;
@@ -104,27 +106,25 @@ describe('Controller', function() {
 
         sellMethodSpy.called.should.eql(true, 'expected ResourceManager#sellProduct to be called');
         houseSellSpy.called.should.eql(true, 'expected House#sell to be called');
-        cont.resourceManager.sellProduct.restore();
       });
     });
 
     context('when the house does not exist', function() {
       it('does nothing', function() {
-        var sellMethodSpy = sinon.spy(cont.resourceManager, "sellProduct");
+        var sellMethodSpy = sandbox.spy(cont.resourceManager, "sellProduct");
         cont.resourceManager.product = 10;
 
         cont.sellToHouse("notahouse");
 
         sellMethodSpy.called.should.eql(false, 'expected ResourceManager#sellProduct not to be called');
-        cont.resourceManager.sellProduct.restore();
       });
     });
 
     context('when the house is not ready', function() {
       it('does nothing', function() {
         var house = new House({budget: 120, frequency: 20, active: false, hypeToActivate: 0});
-        var sellMethodSpy = sinon.spy(cont.resourceManager, "sellProduct");
-        var houseSellSpy = sinon.spy(house, "sell");
+        var sellMethodSpy = sandbox.spy(cont.resourceManager, "sellProduct");
+        var houseSellSpy = sandbox.spy(house, "sell");
         cont.neighborhood.houses.push(house);
         cont.resourceManager.product = 10;
 
@@ -132,15 +132,14 @@ describe('Controller', function() {
 
         sellMethodSpy.called.should.eql(false, 'expected ResourceManager#sellProduct not to be called');
         houseSellSpy.called.should.eql(false, 'expected House#sell not to be called');
-        cont.resourceManager.sellProduct.restore();
       });
     });
 
     context('when insufficient product is available', function() {
       it('does nothing', function() {
         var house = new House({budget: 120, frequency: 20, active: true, hypeToActivate: 0});
-        var sellMethodSpy = sinon.spy(cont.resourceManager, "sellProduct");
-        var houseSellSpy = sinon.spy(house, "sell");
+        var sellMethodSpy = sandbox.spy(cont.resourceManager, "sellProduct");
+        var houseSellSpy = sandbox.spy(house, "sell");
         house.willingToBuy = true;
         cont.neighborhood.houses.push(house);
         cont.resourceManager.product = 0;
@@ -149,7 +148,6 @@ describe('Controller', function() {
 
         sellMethodSpy.called.should.eql(false, 'expected ResourceManager#sellProduct not to be called');
         houseSellSpy.called.should.eql(false, 'expected House#sell not to be called');
-        cont.resourceManager.sellProduct.restore();
       });
     });
   });
