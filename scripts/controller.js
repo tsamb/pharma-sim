@@ -84,11 +84,11 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
     }
   }
 
-  Controller.prototype.purchaseAdvertising = function(methodId) {
-    var method = this.advertisements.find(function(method) { return method.id === methodId });
-    if (method && this.resourceManager.cashIsAvailable(method.price)) {
-      this.resourceManager.processPurchase(method.price);
-      this.marketingManager.increaseHype(method.hype);
+  Controller.prototype.purchaseAdvertising = function(adId) {
+    var ad = this.advertisements.find(function(ad) { return ad.id === adId });
+    if (ad && this.resourceManager.cashIsAvailable(ad.price)) {
+      this.resourceManager.processPurchase(ad.price);
+      this.marketingManager.increaseHype(ad.hype);
     }
   }
 
