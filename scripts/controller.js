@@ -19,10 +19,10 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
   // <<<<<<<< INITIAL SET UP >>>>>>>>
 
   var HOUSE_ARGS = [
-    {budget: 80, frequency: 5, active: true, hypeToActivate: 0},
-    {budget: 120, frequency: 20, active: true, hypeToActivate: 0},
-    {budget: 150, frequency: 23, active: true, hypeToActivate: 0},
-    {budget: 250, frequency: 30, active: true, hypeToActivate: 0},
+    {budget: 80, frequency: 5, active: true, hypeToActivate: 1},
+    {budget: 120, frequency: 20, active: true, hypeToActivate: 1},
+    {budget: 150, frequency: 23, active: true, hypeToActivate: 1},
+    {budget: 250, frequency: 30, active: true, hypeToActivate: 1},
     {budget: 150, frequency: 25, active: false, hypeToActivate: 2},
     {budget: 180, frequency: 27, active: false, hypeToActivate: 2},
     {budget: 200, frequency: 18, active: false, hypeToActivate: 3},
