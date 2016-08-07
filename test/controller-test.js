@@ -281,4 +281,45 @@ describe('Controller', function() {
       eventListenerSpy.callCount.should.eql(6);
     });
   });
+
+  describe('#onSellToHouse', function() {
+    it('calls the relevant controller method', function() {
+      var contMethodSpy = sandbox.stub(cont, 'onSellToHouse');
+
+      cont.onSellToHouse("test-house-id");
+
+      contMethodSpy.calledWith("test-house-id").should.eql(true, 'expected #onSellToHouse to be called with "test-house-id"');
+    });
+  });
+
+  describe('#onBuyProduct', function() {
+    it('calls the relevant controller method', function() {
+      var contMethodSpy = sandbox.stub(cont, 'onBuyProduct');
+
+      cont.onBuyProduct("test-offer-id");
+
+      contMethodSpy.calledWith("test-offer-id").should.eql(true, 'expected #onBuyProduct to be called with "test-offer-id"');
+    });
+  });
+
+  describe('#onPurchaseAdvertising', function() {
+    it('calls the relevant controller method', function() {
+      var contMethodSpy = sandbox.stub(cont, 'onPurchaseAdvertising');
+
+      cont.onPurchaseAdvertising("test-ad-id");
+
+      contMethodSpy.calledWith("test-ad-id").should.eql(true, 'expected #onPurchaseAdvertising to be called with "test-ad-id"');
+    });
+  });
+
+  describe('#onAddProperty', function() {
+    it('calls the relevant controller method', function() {
+      var contMethodSpy = sandbox.stub(cont, 'onAddProperty');
+
+      cont.onAddProperty();
+
+      contMethodSpy.called.should.eql(true, 'expected #onAddProperty to be called');
+    });
+  });
+
 });
