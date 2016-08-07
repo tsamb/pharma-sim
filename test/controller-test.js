@@ -13,13 +13,14 @@ requirejs.config({
 });
 
 describe('Controller', function() {
-  var Controller, House, cont, sandbox;
+  var Controller, House, SupplyOffer, Advertisement, EventHelper, cont, sandbox;
   before(function(done) {
-    requirejs(['controller', 'models/house', 'models/supply-offer', 'models/advertisement'], function(ControllerConstructor, HouseConstructor, SupplyOfferConstructor, AdConstructor) {
+    requirejs(['controller', 'models/house', 'models/supply-offer', 'models/advertisement', 'helpers/event-helper'], function(ControllerConstructor, HouseConstructor, SupplyOfferConstructor, AdConstructor, EventHelperModule) {
       Controller = ControllerConstructor;
       House = HouseConstructor;
       SupplyOffer = SupplyOfferConstructor;
       Advertisement = AdConstructor;
+      EventHelper = EventHelperModule;
       done();
     });
   });
@@ -226,32 +227,58 @@ describe('Controller', function() {
   });
 
   describe('#addHouse', function() {
-    it('', function() {
+    it('adds a house to the neighborhood and sets up a click listener', function() {
+      var houseAddSpy = sandbox.spy(cont.neighborhood, "addHouse");
+      var eventListenerSpy = sandbox.spy(EventHelper, "addClickListener");
 
+      cont.addHouse({budget: 240, frequency: 10, active: false, hypeToActivate: 7});
+
+      houseAddSpy.called.should.eql(true, 'expected Neighborhood#addHouse to be called');
+      eventListenerSpy.called.should.eql(true);
     });
   });
 
   describe('#addSupplyOffer', function() {
-    it('', function() {
+    it('adds a supply offer to the collection and sets up a click listener', function() {
+      var eventListenerSpy = sandbox.spy(EventHelper, "addClickListener");
+      cont.supplyOffers.should.be.empty();
 
+      cont.addSupplyOffer({amount: 20, price: 1500});
+
+      cont.supplyOffers.should.not.be.empty();
+      eventListenerSpy.called.should.eql(true);
     });
   });
 
   describe('#addAdvertisement', function() {
-    it('', function() {
+    it('adds an advertisement to the collection and sets up a click listener', function() {
+      var eventListenerSpy = sandbox.spy(EventHelper, "addClickListener");
+      cont.advertisements.should.be.empty();
 
+      cont.addAdvertisement({name: "Test Ad", price: 500, hype: 1200});
+
+      cont.advertisements.should.not.be.empty();
+      eventListenerSpy.called.should.eql(true);
     });
   });
 
   describe('#addPropertyUpgrade', function() {
-    it('', function() {
+    it('sets up a click listener for upgrading storage space', function() {
+      var eventListenerSpy = sandbox.spy(EventHelper, "addClickListener");
 
+      cont.addPropertyUpgrade();
+
+      eventListenerSpy.called.should.eql(true);
     });
   });
 
   describe('#addPurchasableSwitches', function() {
-    it('', function() {
+    it('delegates DOM manipulation to the event helper for each one of the 6 purchase types', function() {
+      var eventListenerSpy = sandbox.spy(EventHelper, "addPurchasableSwitch");
 
+      cont.addPurchasableSwitches();
+
+      eventListenerSpy.callCount.should.eql(6);
     });
   });
 });
