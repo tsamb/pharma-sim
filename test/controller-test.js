@@ -55,9 +55,9 @@ describe('Controller', function() {
 
         cont.init();
 
-        cont.neighborhood.houses.should.not.be.empty();
-        cont.supplyOffers.should.not.be.empty();
-        cont.advertisements.should.not.be.empty();
+        cont.neighborhood.houses.length.should.eql(15);
+        cont.supplyOffers.length.should.eql(4);
+        cont.advertisements.length.should.eql(9);
       });
     });
 
