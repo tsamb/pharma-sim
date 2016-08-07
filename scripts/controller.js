@@ -96,25 +96,25 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
 
   Controller.prototype.addHouse = function(args) {
     var houseId = this.neighborhood.addHouse(args);
-    EventHelper.addClickListener(houseId, function() { this.sellToHouse(houseId) }.bind(this));
+    EventHelper.addClickListener(houseId, this.onSellToHouse.bind(this, houseId));
   }
 
   Controller.prototype.addSupplyOffer = function(args) {
     var offer = new SupplyOffer(args);
-    EventHelper.addClickListener(offer.id, function() { this.buyProduct(offer.id) }.bind(this));
+    EventHelper.addClickListener(offer.id, this.onBuyProduct.bind(this, offer.id));
     this.supplyOffers.push(offer);
     return this.supplyOffers;
   }
 
   Controller.prototype.addAdvertisement = function(args) {
     var method = new Advertisement(args);
-    EventHelper.addClickListener(method.id, function() { this.purchaseAdvertising(method.id) }.bind(this));
+    EventHelper.addClickListener(method.id, this.onPurchaseAdvertising.bind(this, method.id));
     this.advertisements.push(method);
     return this.advertisements;
   }
 
   Controller.prototype.addPropertyUpgrade = function() {
-    EventHelper.addClickListener('property-upgrade-button', function() { this.resourceManager.increaseCapacity() }.bind(this));
+    EventHelper.addClickListener('property-upgrade-button', this.onAddProperty.bind(this));
   }
 
   Controller.prototype.addPurchasableSwitches = function() {
@@ -124,6 +124,24 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
     EventHelper.addPurchasableSwitch("advertising-switch", "advertising");
     EventHelper.addPurchasableSwitch("lobbying-switch", "lobbying-options");
     EventHelper.addPurchasableSwitch("labor-switch", "labor-options");
+  }
+
+  // <<<<<<<< EVENT CALLBACKS >>>>>>>>
+
+  Controller.prototype.onSellToHouse = function(houseId) {
+    this.sellToHouse(houseId);
+  }
+
+  Controller.prototype.onBuyProduct = function(offerId) {
+    this.buyProduct(offerId);
+  }
+
+  Controller.prototype.onPurchaseAdvertising = function(methodId) {
+    this.purchaseAdvertising(methodId);
+  }
+
+  Controller.prototype.onAddProperty = function() {
+    this.resourceManager.increaseCapacity();
   }
 
   return Controller;
