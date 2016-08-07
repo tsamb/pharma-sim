@@ -84,7 +84,7 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
     }
   }
 
-  Controller.prototype.purchaseMarketing = function(methodId) {
+  Controller.prototype.purchaseAdvertising = function(methodId) {
     var method = this.advertisements.find(function(method) { return method.id === methodId });
     if (method && this.resourceManager.cashIsAvailable(method.price)) {
       this.resourceManager.processPurchase(method.price);
@@ -108,7 +108,7 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
 
   Controller.prototype.addAdvertisement = function(args) {
     var method = new Advertisement(args);
-    EventHelper.addClickListener(method.id, function() { this.purchaseMarketing(method.id) }.bind(this));
+    EventHelper.addClickListener(method.id, function() { this.purchaseAdvertising(method.id) }.bind(this));
     this.advertisements.push(method);
     return this.advertisements;
   }

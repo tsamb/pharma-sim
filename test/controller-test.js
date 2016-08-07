@@ -15,10 +15,11 @@ requirejs.config({
 describe('Controller', function() {
   var Controller, House, cont, sandbox;
   before(function(done) {
-    requirejs(['controller', 'models/house', 'models/supply-offer'], function(ControllerConstructor, HouseConstructor, SupplyOfferConstructor) {
+    requirejs(['controller', 'models/house', 'models/supply-offer', 'models/advertisement'], function(ControllerConstructor, HouseConstructor, SupplyOfferConstructor, AdConstructor) {
       Controller = ControllerConstructor;
       House = HouseConstructor;
       SupplyOffer = SupplyOfferConstructor;
+      Advertisement = AdConstructor;
       done();
     });
   });
@@ -179,9 +180,48 @@ describe('Controller', function() {
     });
   });
 
-  describe('#purchaseMarketing', function() {
-    it('', function() {
+  describe('#purchaseAdvertising', function() {
+    context('when the ad exists and sufficient cash is available', function() {
+      it('processes the purchase and increases the hype', function() {
+        var ad = new Advertisement({name: "Test Ad", price: 300, hype: 900});
+        cont.advertisements.push(ad);
+        var purchaseMethodSpy = sandbox.spy(cont.resourceManager, "processPurchase");
+        var hypeMethodSpy = sandbox.stub(cont.marketingManager, "increaseHype", function() {});
+        cont.resourceManager.bankAccount = 1000;
 
+        cont.purchaseAdvertising(ad.id);
+
+        purchaseMethodSpy.calledWith(300).should.eql(true, 'expected ResourceManager#processPurchase to be called with 300');
+        hypeMethodSpy.calledWith(900).should.eql(true, 'expected MarketingManager#increaseHype to be called with 900');
+      });
+    });
+
+    context('when the ad doesn\'t exist', function() {
+      it('does nothing', function() {
+        var purchaseMethodSpy = sandbox.spy(cont.resourceManager, "processPurchase");
+        var hypeMethodSpy = sandbox.stub(cont.marketingManager, "increaseHype", function() {});
+        cont.resourceManager.bankAccount = 1000;
+
+        cont.purchaseAdvertising("notanad");
+
+        purchaseMethodSpy.called.should.eql(false, 'expected ResourceManager#processPurchase not to be called');
+        hypeMethodSpy.called.should.eql(false, 'expected MarketingManager#increaseHype not to be called');
+      });
+    });
+
+    context('when there is insufficient cash', function() {
+      it('does nothing', function() {
+        var ad = new Advertisement({name: "Test Ad", price: 300, hype: 900});
+        cont.advertisements.push(ad);
+        var purchaseMethodSpy = sandbox.spy(cont.resourceManager, "processPurchase");
+        var hypeMethodSpy = sandbox.stub(cont.marketingManager, "increaseHype", function() {});
+        cont.resourceManager.bankAccount = 200;
+
+        cont.purchaseAdvertising(ad.id);
+
+        purchaseMethodSpy.called.should.eql(false, 'expected ResourceManager#processPurchase not to be called');
+        hypeMethodSpy.called.should.eql(false, 'expected MarketingManager#increaseHype not to be called');
+      });
     });
   });
 
