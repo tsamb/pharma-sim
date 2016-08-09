@@ -11,8 +11,8 @@ define(['presenters/marketing-manager-presenter'], function(MarketingManagerPres
   // <<<<<<<< COMPUTED PROPERTIES >>>>>>>>
 
   MarketingManager.prototype.level = function() {
-    // current xp/level: 2 => 1000, 3 => 8000, 4 => 27000, 5 => 125000
-    return Math.floor(Math.pow(this.hype, 1 / LEVEL_EXPONENT) / LEVEL_MULTIPLE) + 1;
+    // current xp/level: 2 => 1000, 3 => 8000, 4 => 27000, 5 => 64000, 6 => 125000
+    return Math.floor(Math.pow(this.hype + 1, 1 / LEVEL_EXPONENT) / LEVEL_MULTIPLE) + 1;
   }
 
   MarketingManager.prototype.currentLevelReachedAt = function() {
@@ -47,16 +47,17 @@ define(['presenters/marketing-manager-presenter'], function(MarketingManagerPres
   }
 
   MarketingManager.prototype.decreaseHype = function(amount) {
-    this.hype -= Math.ceil(amount);
-    this.presenter.refresh();
+    var amountToDecrease = Math.ceil(amount);
+    if (amountToDecrease > this.hype) {
+      this.hype = 0;
+    } else {
+      this.hype -= Math.ceil(amount);
+      this.presenter.refresh();
+    }
   }
 
   MarketingManager.prototype.organicHypeFade = function() {
-    if (this.hype > 0 + (FADE_DECREMENT_MULTIPLE * this.hype)) {
-      this.decreaseHype(FADE_DECREMENT_MULTIPLE * this.hype);
-    } else {
-      this.hype = 0;
-    }
+    this.decreaseHype(FADE_DECREMENT_MULTIPLE * this.hype);
   }
 
   return new MarketingManager;

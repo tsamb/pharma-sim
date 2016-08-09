@@ -11,132 +11,156 @@ requirejs.config({
 });
 
 describe('House', function() {
-  var House;
+  var HouseConstructor, mmMockGenerator, defaultHouse, basicHouse;
   before(function(done) {
-    requirejs(['models/house'], function(house) {
-      House = house;
+    requirejs(['models/house'], function(House) {
+      HouseConstructor = House;
+      mmMockGenerator = function(level) {
+        // return a mock of the MarketingManager that does not touch the actual singleton
+        return {level: function() { return level }};
+      }
       done();
     });
   });
 
+  beforeEach(function(done) {
+    defaultHouse = new HouseConstructor({});
+    defaultHouse.marketingManager = mmMockGenerator(1);
+    basicHouse = new HouseConstructor({budget: 80, frequency: 5, active: true, hypeToActivate: 0})
+    basicHouse.marketingManager = mmMockGenerator(1);
+    done();
+  })
+
   describe('#instantiation', function(){
     it('should create new instances of House', function(){
-      var house = new House({budget: 80, frequency: 5, active: true, hypeToActivate: 0});
-      house.presenter = {refresh: function() {}};
-      house.should.have.property('budget', 80);
-      house.should.have.property('frequency', 5);
-      house.should.have.property('active', true);
-      house.should.have.property('hypeToActivate', 0);
-      house.should.have.property('willingToBuy', false);
-      house.should.have.property('id');
+      basicHouse.should.have.property('budget', 80);
+      basicHouse.should.have.property('frequency', 5);
+      basicHouse.should.have.property('active', true);
+      basicHouse.should.have.property('hypeToActivate', 0);
+      basicHouse.should.have.property('willingToBuy', false);
+      basicHouse.should.have.property('id');
     });
 
     it('should have an id starting with "house-"', function() {
-      var house = new House({});
-      house.id.should.match(/house-.*/);
+      defaultHouse.id.should.match(/house-.*/);
     });
 
     it('should set defaults', function() {
-      var house = new House({});
-      house.hypeToActivate.should.eql(0);
-      house.active.should.eql(false);
-      house.willingToBuy.should.eql(false);
+      defaultHouse.hypeToActivate.should.eql(0);
+      defaultHouse.active.should.eql(false);
+      defaultHouse.willingToBuy.should.eql(false);
     });
   });
 
   describe('#currentBudget', function() {
     it('returns a value based on the base budget and current hype', function() {
-      var house = new House({budget: 100, frequency: 5, active: true, hypeToActivate: 0});
-      house.marketingManager.level = function() { return 5 }; // stubbing out #level on the mocked MarketingManager
-      house.currentBudget().should.eql(114);
-      house.marketingManager.level = function() {};
+      defaultHouse.budget = 100;
+      defaultHouse.marketingManager = mmMockGenerator(5)
+      defaultHouse.currentBudget().should.eql(114);
     });
   });
 
   describe('#currentFrequency', function() {
     it('returns a value based on the base frequency and current hype', function() {
-      var house = new House({budget: 100, frequency: 100, active: true, hypeToActivate: 0});
-      house.marketingManager.level = function() { return 5 }; // stubbing out #level on the mocked MarketingManager
-      house.currentFrequency().should.eql(88);
-      house.marketingManager.level = function() {};
+      defaultHouse.frequency = 100;
+      defaultHouse.marketingManager = mmMockGenerator(5);
+      defaultHouse.currentFrequency().should.eql(88);
     });
   });
 
   describe('#readyText', function() {
     it('returns "$ READY $" when the house is active and willing to buy', function() {
-      var house = new House({});
-      house.active = true;
-      house.willingToBuy = true;
-      house.readyText().should.eql("$ Ready $");
+      defaultHouse.active = true;
+      defaultHouse.willingToBuy = true;
+      defaultHouse.readyText().should.eql("$ Ready $");
     });
 
     it('returns "Not ready" when the house is not active', function() {
-      var house = new House({});
-      house.active = false;
-      house.willingToBuy = true;
-      house.readyText().should.eql("Not ready");
+      defaultHouse.active = false;
+      defaultHouse.willingToBuy = true;
+      defaultHouse.readyText().should.eql("Not ready");
     });
 
     it('returns "Not ready" when the house is not willing to buy', function() {
-      var house = new House({});
-      house.active = true;
-      house.willingToBuy = false;
-      house.readyText().should.eql("Not ready");
+      defaultHouse.active = true;
+      defaultHouse.willingToBuy = false;
+      defaultHouse.readyText().should.eql("Not ready");
     });
   });
 
   describe('#ready', function() {
     it('returns true when the house is active and willing to buy', function() {
-      var house = new House({});
-      house.active = true;
-      house.willingToBuy = true;
-      house.ready().should.eql(true);
+      defaultHouse.active = true;
+      defaultHouse.willingToBuy = true;
+      defaultHouse.ready().should.eql(true);
     });
 
     it('returns false when the house is not active', function() {
-      var house = new House({});
-      house.active = false;
-      house.willingToBuy = true;
-      house.ready().should.eql(false);
+      defaultHouse.active = false;
+      defaultHouse.willingToBuy = true;
+      defaultHouse.ready().should.eql(false);
     });
 
     it('returns false when the house is not willing to buy', function() {
-      var house = new House({});
-      house.active = true;
-      house.willingToBuy = false;
-      house.ready().should.eql(false);
+      defaultHouse.active = true;
+      defaultHouse.willingToBuy = false;
+      defaultHouse.ready().should.eql(false);
     });
   });
 
   describe('#daysUntilReady', function() {
     it('given the current absolute day, returns the days until this house is ready to buy', function() {
-      var house = new House({budget: 80, frequency: 5, active: true, hypeToActivate: 0});
-      house.marketingManager.level = function() { return 1 };
-      house.daysUntilReady(9).should.eql(1);
-      house.marketingManager.level = function() {};
-    });
-
-    it('given the current absolute day, returns the days until this house is ready to buy', function() {
-      var house = new House({budget: 80, frequency: 5, active: true, hypeToActivate: 0});
-      house.marketingManager.level = function() { return 1 };
-      house.daysUntilReady(10).should.eql(0);
-      house.marketingManager.level = function() {};
+      basicHouse.daysUntilReady(9).should.eql(1);
+      basicHouse.daysUntilReady(10).should.eql(0);
     });
   });
 
   describe('#sell', function() {
     it('returns 0 if house is not willing to buy', function() {
-      var house = new House({budget: 80, frequency: 5, active: true, hypeToActivate: 0});
-      house.willingToBuy = false;
-      house.sell().should.eql(0);
+      basicHouse.willingToBuy = false;
+      basicHouse.sell().should.eql(0);
     });
 
     it('returns the house\'s budget if willing to buy', function() {
-      var house = new House({budget: 80, frequency: 5, active: true, hypeToActivate: 0});
-      house.willingToBuy = true;
-      house.marketingManager.level = function() { return 1 };
-      house.sell().should.eql(80);
-      house.marketingManager.level = function() {};
+      basicHouse.willingToBuy = true;
+      basicHouse.sell().should.eql(80);
+    });
+  });
+
+  describe('#updateHype', function() {
+    it('activates the house if hype level is sufficient', function() {
+      basicHouse.active = false;
+      basicHouse.hypeToActivate = 2;
+      basicHouse.marketingManager = mmMockGenerator(2);
+      basicHouse.updateHype();
+      basicHouse.active.should.eql(true);
+    });
+
+    it('does not activate the house if hype level is insufficient', function() {
+      basicHouse.active = false;
+      basicHouse.hypeToActivate = 4;
+      basicHouse.marketingManager = mmMockGenerator(3);
+      basicHouse.updateHype();
+      basicHouse.active.should.eql(false);
+    });
+
+    it('does not deactivate the house if hype level drops below sufficiency', function() {
+      basicHouse.active = false;
+      basicHouse.hypeToActivate = 2;
+      basicHouse.marketingManager = mmMockGenerator(2);
+      basicHouse.updateHype();
+      basicHouse.active.should.eql(true);
+      basicHouse.marketingManager = mmMockGenerator(1);
+      basicHouse.updateHype();
+      basicHouse.active.should.eql(true);
+    });
+  });
+
+  describe('#updateReadiness', function() {
+    it('flags house as willing-to-buy if it hits exactly 0 days until ready', function() {
+      basicHouse.willingToBuy.should.eql(false);
+      basicHouse.updateReadiness(10);
+      basicHouse.willingToBuy.should.eql(true);
     });
   });
 });
