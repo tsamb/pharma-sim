@@ -5,8 +5,9 @@ define(['models/resource-manager',
 'models/neighborhood',
 'models/marketing-manager',
 'models/advertisement',
-'helpers/event-helper'],
-function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManager, Advertisement, EventHelper) {
+'helpers/event-helper',
+'models/neighborhood-generator'],
+function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManager, Advertisement, EventHelper, NeighborhoodGenerator) {
   var Controller = function() {
     this.days = new Days;
     this.resourceManager = new ResourceManager;
@@ -18,7 +19,7 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
 
   // <<<<<<<< INITIAL SET UP >>>>>>>>
 
-  var HOUSE_ARGS = [
+  var DEFAULT_HOUSE_ARGS = [
     {budget: 80, frequency: 5, active: true, hypeToActivate: 1},
     {budget: 120, frequency: 20, active: true, hypeToActivate: 1},
     {budget: 150, frequency: 23, active: true, hypeToActivate: 1},
@@ -56,7 +57,8 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
   ];
 
   Controller.prototype.init = function() {
-    HOUSE_ARGS.forEach(function(args) { this.addHouse(args) }.bind(this));
+    NeighborhoodGenerator.generate().forEach(function(args) { this.addHouse(args) }.bind(this));
+    // DEFAULT_HOUSE_ARGS.forEach(function(args) { this.addHouse(args) }.bind(this));
     OFFER_ARGS.forEach(function(args) { this.addSupplyOffer(args) }.bind(this));
     AD_ARGS.forEach(function(args) { this.addAdvertisement(args) }.bind(this));
     this.addPropertyUpgrade();
