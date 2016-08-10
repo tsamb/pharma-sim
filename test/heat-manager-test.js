@@ -180,9 +180,9 @@ describe('HeatManager', function() {
     it('decreases the heat by a quotient relative to the current heat', function() {
       hm.heat = 10000;
       hm.organicHeatFade();
-      hm.heat.should.eql(9900);
+      hm.heat.should.eql(9000);
       hm.organicHeatFade();
-      hm.heat.should.eql(9801);
+      hm.heat.should.eql(8100);
     });
   });
 });
