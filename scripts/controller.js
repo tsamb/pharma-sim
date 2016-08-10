@@ -6,13 +6,15 @@ define(['models/resource-manager',
 'models/marketing-manager',
 'models/advertisement',
 'helpers/event-helper',
-'models/neighborhood-generator'],
-function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManager, Advertisement, EventHelper, NeighborhoodGenerator) {
+'models/neighborhood-generator',
+'models/heat-manager'],
+function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManager, Advertisement, EventHelper, NeighborhoodGenerator, HeatManager) {
   var Controller = function() {
     this.days = new Days;
     this.resourceManager = new ResourceManager;
     this.neighborhood = new Neighborhood;
     this.marketingManager = MarketingManager;
+    this.heatManager = HeatManager;
     this.supplyOffers = [];
     this.advertisements = [];
   }

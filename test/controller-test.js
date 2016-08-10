@@ -43,6 +43,7 @@ describe('Controller', function() {
         cont.should.have.property('marketingManager');
         cont.should.have.property('supplyOffers');
         cont.should.have.property('advertisements');
+        cont.should.have.property('heatManager');
       });
     });
 
