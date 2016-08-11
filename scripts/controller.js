@@ -59,7 +59,10 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
   ];
 
   Controller.prototype.init = function() {
-    NeighborhoodGenerator.generate().forEach(function(args) { this.addHouse(args) }.bind(this));
+    NeighborhoodGenerator.generate().forEach(function(args) {
+      args.resourceManager = this.resourceManager;
+      this.addHouse(args)
+    }.bind(this));
     // DEFAULT_HOUSE_ARGS.forEach(function(args) { this.addHouse(args) }.bind(this));
     OFFER_ARGS.forEach(function(args) { this.addSupplyOffer(args) }.bind(this));
     AD_ARGS.forEach(function(args) { this.addAdvertisement(args) }.bind(this));
@@ -84,8 +87,8 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
 
   Controller.prototype.sellToHouse = function(houseId) {
     var house = this.neighborhood.findHouse(houseId);
-    if (house && house.ready() && this.resourceManager.productIsAvailable()) {
-      this.resourceManager.sellProduct(1, house.sell());
+    if (house) {
+      house.sell();
     }
   }
 

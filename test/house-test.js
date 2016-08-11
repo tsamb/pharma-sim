@@ -10,11 +10,12 @@ requirejs.config({
   }
 });
 
-describe('House', function() {
-  var HouseConstructor, mmMockGenerator, defaultHouse, basicHouse;
+describe('House Model', function() {
+  var House, ResourceManager, mmMockGenerator, defaultHouse, basicHouse;
   before(function(done) {
-    requirejs(['models/house'], function(House) {
-      HouseConstructor = House;
+    requirejs(['models/house', 'models/resource-manager'], function(HouseConstructor, ResourceManagerConstructor) {
+      House = HouseConstructor;
+      ResourceManager = ResourceManagerConstructor;
       mmMockGenerator = function(level) {
         // return a mock of the MarketingManager that does not touch the actual singleton
         return {level: function() { return level }};
@@ -24,9 +25,9 @@ describe('House', function() {
   });
 
   beforeEach(function(done) {
-    defaultHouse = new HouseConstructor({});
+    defaultHouse = new House({});
     defaultHouse.marketingManager = mmMockGenerator(1);
-    basicHouse = new HouseConstructor({budget: 80, frequency: 5, active: true, hypeToActivate: 0})
+    basicHouse = new House({budget: 80, frequency: 5, active: true, hypeToActivate: 0, resourceManager: new ResourceManager})
     basicHouse.marketingManager = mmMockGenerator(1);
     done();
   })
@@ -116,14 +117,34 @@ describe('House', function() {
   });
 
   describe('#sell', function() {
-    it('returns 0 if house is not willing to buy', function() {
-      basicHouse.willingToBuy = false;
-      basicHouse.sell().should.eql(0);
+    context('when the house is ready and product is available', function() {
+      it('processes the transaction for the house and the resource manager', function() {
+        basicHouse.willingToBuy = true;
+        basicHouse.resourceManager.product = 10;
+
+        basicHouse.sell().should.eql(true)
+        basicHouse.resourceManager.product.should.eql(9);
+      });
     });
 
-    it('returns the house\'s budget if willing to buy', function() {
-      basicHouse.willingToBuy = true;
-      basicHouse.sell().should.eql(80);
+    context('when the house is not ready', function() {
+      it('does nothing', function() {
+        basicHouse.active = false
+        basicHouse.resourceManager.product = 10;
+
+        basicHouse.sell().should.eql(false)
+        basicHouse.resourceManager.product.should.eql(10);
+      });
+    });
+
+    context('when insufficient product is available', function() {
+      it('does nothing', function() {
+        basicHouse.willingToBuy = true;
+        basicHouse.resourceManager.product = 0;
+
+        basicHouse.sell().should.eql(false)
+        basicHouse.resourceManager.product.should.eql(0);
+      });
     });
   });
 

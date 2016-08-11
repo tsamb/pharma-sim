@@ -7,6 +7,7 @@ define(['presenters/house-presenter', 'models/marketing-manager', 'errors/errors
     this.active = args.active || false;
     this.hypeToActivate = args.hypeToActivate || 0;
     this.id = this.constructor.name.toLowerCase() + "-" + House.numInstances;
+    this.resourceManager = args.resourceManager;
     this.marketingManager = MarketingManager;
     this.presenter = new HousePresenter(this);
   }
@@ -60,12 +61,13 @@ define(['presenters/house-presenter', 'models/marketing-manager', 'errors/errors
   // <<<<<<<< MUTATOR METHODS >>>>>>>>
 
   House.prototype.sell = function() {
-    if (this.willingToBuy) {
+    if (this.ready() && this.resourceManager.productIsAvailable()) {
+      this.resourceManager.sellProduct(1, this.currentBudget());
       this.willingToBuy = false;
       this.presenter.refresh();
-      return this.currentBudget();
+      return true;
     } else {
-      return 0;
+      return false;
     }
   }
 

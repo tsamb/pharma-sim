@@ -106,62 +106,14 @@ describe('Controller', function() {
 
   describe('Controller methods', function() {
     describe('#sellToHouse', function() {
-      context('when the house exists, is ready and product is available', function() {
-        it('processes the transaction for the house and the resource manager', function() {
-          var house = new House({budget: 120, frequency: 20, active: true, hypeToActivate: 0});
-          var sellMethodSpy = sandbox.spy(cont.resourceManager, "sellProduct");
-          var houseSellSpy = sandbox.spy(house, "sell");
-          house.willingToBuy = true;
-          cont.neighborhood.houses.push(house);
-          cont.resourceManager.product = 10;
+      it('processes the transaction for the house and the resource manager', function() {
+        var house = new House({budget: 120, frequency: 20, active: true, hypeToActivate: 0});
+        var houseSellSpy = sandbox.stub(house, "sell");
+        cont.neighborhood.houses.push(house);
 
-          cont.sellToHouse(house.id);
+        cont.sellToHouse(house.id);
 
-          sellMethodSpy.called.should.eql(true, 'expected ResourceManager#sellProduct to be called');
-          houseSellSpy.called.should.eql(true, 'expected House#sell to be called');
-        });
-      });
-
-      context('when the house does not exist', function() {
-        it('does nothing', function() {
-          var sellMethodSpy = sandbox.spy(cont.resourceManager, "sellProduct");
-          cont.resourceManager.product = 10;
-
-          cont.sellToHouse("notahouse");
-
-          sellMethodSpy.called.should.eql(false, 'expected ResourceManager#sellProduct not to be called');
-        });
-      });
-
-      context('when the house is not ready', function() {
-        it('does nothing', function() {
-          var house = new House({budget: 120, frequency: 20, active: false, hypeToActivate: 0});
-          var sellMethodSpy = sandbox.spy(cont.resourceManager, "sellProduct");
-          var houseSellSpy = sandbox.spy(house, "sell");
-          cont.neighborhood.houses.push(house);
-          cont.resourceManager.product = 10;
-
-          cont.sellToHouse(house.id);
-
-          sellMethodSpy.called.should.eql(false, 'expected ResourceManager#sellProduct not to be called');
-          houseSellSpy.called.should.eql(false, 'expected House#sell not to be called');
-        });
-      });
-
-      context('when insufficient product is available', function() {
-        it('does nothing', function() {
-          var house = new House({budget: 120, frequency: 20, active: true, hypeToActivate: 0});
-          var sellMethodSpy = sandbox.spy(cont.resourceManager, "sellProduct");
-          var houseSellSpy = sandbox.spy(house, "sell");
-          house.willingToBuy = true;
-          cont.neighborhood.houses.push(house);
-          cont.resourceManager.product = 0;
-
-          cont.sellToHouse(house.id);
-
-          sellMethodSpy.called.should.eql(false, 'expected ResourceManager#sellProduct not to be called');
-          houseSellSpy.called.should.eql(false, 'expected House#sell not to be called');
-        });
+        houseSellSpy.called.should.eql(true, 'expected House#sell to be called');
       });
     });
 
