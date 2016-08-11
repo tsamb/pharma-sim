@@ -1,7 +1,7 @@
 define(['presenters/heat-manager-presenter'], function(HeatManagerPresenter) {
   var LEVEL_MULTIPLE = 10;
   var LEVEL_EXPONENT = 3;
-  var FADE_DECREMENT_MULTIPLE = 0.05;
+  var FADE_DECREMENT_MULTIPLE = 0.1;
 
   function HeatManager() {
     this.heat = 0;
