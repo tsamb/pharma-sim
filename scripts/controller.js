@@ -80,6 +80,7 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
     this.days.increment();
     this.neighborhood.updateHouseReadiness(this.days.count);
     this.marketingManager.organicHypeFade();
+    this.heatManager.organicHeatFade();
     this.neighborhood.updateHype();
   }
 
@@ -102,6 +103,7 @@ function(ResourceManager, House, SupplyOffer, Days, Neighborhood, MarketingManag
   Controller.prototype.purchaseAdvertising = function(adId) {
     var ad = this.advertisements.find(function(ad) { return ad.id === adId });
     if (ad && this.resourceManager.cashIsAvailable(ad.price)) {
+      this.heatManager.increaseHeat(ad.price);
       this.resourceManager.processPurchase(ad.price);
       this.marketingManager.increaseHype(ad.hype);
     }

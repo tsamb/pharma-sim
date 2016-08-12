@@ -1,6 +1,6 @@
 define(['presenters/heat-manager-presenter'], function(HeatManagerPresenter) {
-  var LEVEL_MULTIPLE = 10;
-  var LEVEL_EXPONENT = 3;
+  var LEVEL_MULTIPLE = 100;
+  var LEVEL_EXPONENT = 2;
   var FADE_DECREMENT_MULTIPLE = 0.1;
 
   function HeatManager() {
@@ -11,7 +11,6 @@ define(['presenters/heat-manager-presenter'], function(HeatManagerPresenter) {
   // <<<<<<<< COMPUTED PROPERTIES >>>>>>>>
 
   HeatManager.prototype.level = function() {
-    // current xp/level: 2 => 1000, 3 => 8000, 4 => 27000, 5 => 64000, 6 => 125000
     return Math.floor(Math.pow(this.heat + 1, 1 / LEVEL_EXPONENT) / LEVEL_MULTIPLE) + 1;
   }
 

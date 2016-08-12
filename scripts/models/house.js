@@ -1,4 +1,4 @@
-define(['presenters/house-presenter', 'models/marketing-manager', 'errors/errors'], function(HousePresenter, MarketingManager, errors) {
+define(['presenters/house-presenter', 'models/marketing-manager','errors/errors'], function(HousePresenter, MarketingManager, errors) {
   function House(args) {
     House.numInstances = (House.numInstances || 0) + 1;
     this.budget = args.budget;
@@ -62,7 +62,7 @@ define(['presenters/house-presenter', 'models/marketing-manager', 'errors/errors
 
   House.prototype.sell = function() {
     if (this.ready() && this.resourceManager.productIsAvailable()) {
-      this.resourceManager.sellProduct(1, this.currentBudget());
+      this.resourceManager.sellProduct(1, this.currentBudget())
       this.willingToBuy = false;
       this.presenter.refresh();
       return true;

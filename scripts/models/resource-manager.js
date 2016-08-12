@@ -1,14 +1,17 @@
 define(['models/experience-manager',
 'models/storage-manager',
+'models/heat-manager',
 'presenters/resource-manager-presenter',
-'errors/errors'], function(ExperienceManager, StorageManager, ResourceManagerPresenter, errors) {
+'errors/errors'], function(ExperienceManager, StorageManager, HeatManager, ResourceManagerPresenter, errors) {
   var PURCHASE_XP_REWARD_MULTIPLE = 50;
+  var PURCHASE_HEAT_MULTIPLE = 500;
 
   function ResourceManager() {
     this.product = 0;
     this.bankAccount = 5000;
     this.storageManager = new StorageManager({capacity: 100});
     this.experienceManager = new ExperienceManager;
+    this.heatManager = HeatManager;
     this.presenter = new ResourceManagerPresenter(this);
   }
 
@@ -55,7 +58,8 @@ define(['models/experience-manager',
 
   ResourceManager.prototype.sellProduct = function(amount, cash) {
     if (this.productIsAvailable()) {
-      this.experienceManager.increase(amount * cash)
+      this.experienceManager.increase(amount * cash);
+      this.heatManager.increaseHeat(amount * cash);
       this.product -= amount;
       this.bankAccount += cash;
       this.presenter.refresh();
@@ -66,6 +70,7 @@ define(['models/experience-manager',
   ResourceManager.prototype.buyProduct = function(amount, price) {
     if (this.cashIsAvailable(price) && this.capacityIsAvailable(amount)) {
       this.experienceManager.increase(amount * PURCHASE_XP_REWARD_MULTIPLE);
+      this.heatManager.increaseHeat(amount * PURCHASE_HEAT_MULTIPLE);
       this.product += amount;
       this.bankAccount -= price;
       this.presenter.refresh();
